@@ -24,7 +24,12 @@
         app:layout_constraintTop_toBottomOf="@id/barbell"
         android:layout_marginTop="40dp"
         android:text="Your exercises"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+        android:background="@drawable/buttonshape"
+        android:textColor="@color/white"
+
+        />
+
 
     <Button
         android:id="@+id/weight"
@@ -35,7 +40,23 @@
         app:layout_constraintTop_toBottomOf="@id/exercises"
         android:layout_marginTop="40dp"
         android:text="Your weight"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+        android:background="@drawable/buttonshape"
+        android:textColor="@color/white"
+        />
+    <Button
+        android:id="@+id/counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weight"
+        android:layout_marginTop="40dp"
+        android:text="timer"
+        android:textSize="30dp"
+        android:background="@drawable/buttonshape"
+        android:textColor="@color/white"        />
+
 
 
 </android.support.constraint.ConstraintLayout>
