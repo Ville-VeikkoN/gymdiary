@@ -27,10 +27,9 @@
         android:textSize="30dp"
         android:background="@drawable/buttonshape"
         android:textColor="@color/white"
+        android:onClick="buttonClicked"
 
         />
-
-
     <Button
         android:id="@+id/weight"
         android:layout_width="wrap_content"
