@@ -15,13 +15,24 @@
         android:src="@drawable/barbell2"
         tools:ignore="MissingConstraints" />
 
+    <TextClock
+        android:id="@+id/mainClock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barbell"
+        android:textSize="40dp"
+        android:format12Hour="hh:mm:ss a"
+        />
+
     <Button
         android:id="@+id/exercises"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barbell"
+        app:layout_constraintTop_toBottomOf="@id/mainClock"
         android:layout_marginTop="40dp"
         android:text="Your exercises"
         android:textSize="30dp"
