@@ -1,18 +1,19 @@
 package fi.tuni.gymdiary.mygymdiary;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,33 +21,28 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class ExerciseActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise);
-    }
-
-    protected void onClick(View view) {
-        Log.d("Tag","WEhadad");
-    }
-
-    /*
+public class MovementsFragment extends Fragment {
+    View view;
     private ListView listView;
     ArrayList<String> listItems;
     ArrayAdapter<String> adapter;
+    FloatingActionButton fab;
 
+
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_movements);
-        listView = (ListView) findViewById(R.id.exerciselist);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_movements, container, false);
+        listView = (ListView) view.findViewById(R.id.exerciselist);
         listItems=new ArrayList<>();
+        fab = view.findViewById(R.id.movementsfab);
+        setListeners();
         setListView();
+        return view;
     }
 
     protected void setListView() {
-        adapter=new ArrayAdapter<String>(this,
+        adapter=new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_list_item_1,
                 listItems);
         listView.setAdapter(adapter);
@@ -58,12 +54,26 @@ public class ExerciseActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    protected void setListeners() {
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyExerciseDialog myDialog = new MyExerciseDialog();
+                myDialog.show(getFragmentManager(),"tag");
+            }
+        });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Log.d("MyTag", position +"  " + parent.getAdapter().getItem(position));
+                    ExerciseFragment exerciseFragment = (ExerciseFragment) getFragmentManager().findFragmentById(R.id.fragment2);
+                    exerciseFragment.exerciseSelected(parent.getAdapter().getItem(position));
+                }
+        });
 
-    protected void onClick(View view) {
-        MyExerciseDialog myDialog = new MyExerciseDialog();
-        myDialog.show(getSupportFragmentManager(),"tag");
     }
+
 
     public static class MyExerciseDialog extends DialogFragment {
         @Override
@@ -88,8 +98,8 @@ public class ExerciseActivity extends AppCompatActivity {
                     if(TextUtils.isEmpty(exercise)) {
                         ed_exercise.setError("Cannot be empty");
                     } else {
-                        ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
-                        exerciseActivity.addToListView(exercise);
+                        MovementsFragment movementsFragment = (MovementsFragment) getFragmentManager().findFragmentById(R.id.fragment1);
+                        movementsFragment.addToListView(exercise);
                         dismiss();
                     }
                 }
@@ -105,7 +115,4 @@ public class ExerciseActivity extends AppCompatActivity {
             return builder.create();
         }
     }
-*/
-
-
 }

@@ -1,12 +1,9 @@
 package fi.tuni.gymdiary.mygymdiary;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -20,18 +17,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class ExerciseActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise);
-    }
-
-    protected void onClick(View view) {
-        Log.d("Tag","WEhadad");
-    }
-
-    /*
+public class WeightActivity extends AppCompatActivity {
     private ListView listView;
     ArrayList<String> listItems;
     ArrayAdapter<String> adapter;
@@ -39,10 +25,15 @@ public class ExerciseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_movements);
-        listView = (ListView) findViewById(R.id.exerciselist);
+        setContentView(R.layout.activity_weight);
+        listView = (ListView) findViewById(R.id.weightlist);
         listItems=new ArrayList<>();
         setListView();
+    }
+
+    protected void onClick(View view) {
+        MyWeightDialog myDialog = new MyWeightDialog();
+        myDialog.show(getSupportFragmentManager(),"tag");
     }
 
     protected void setListView() {
@@ -52,20 +43,13 @@ public class ExerciseActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-    protected void addToListView(String exercise) {
+    protected void addToListView(String weight) {
         Log.d("Tag","ADDING");
-        listItems.add(exercise);
+        listItems.add(weight);
         adapter.notifyDataSetChanged();
     }
 
-
-
-    protected void onClick(View view) {
-        MyExerciseDialog myDialog = new MyExerciseDialog();
-        myDialog.show(getSupportFragmentManager(),"tag");
-    }
-
-    public static class MyExerciseDialog extends DialogFragment {
+    public static class MyWeightDialog extends DialogFragment {
         @Override
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -73,23 +57,25 @@ public class ExerciseActivity extends AppCompatActivity {
             final LayoutInflater inflater = requireActivity().getLayoutInflater();
             // Inflate and set the layout for the dialog
             // Pass null as the parent view because its going in the dialog layout
-            View promptView = inflater.inflate(R.layout.dialog_addexercise,null);
+
+            //OWN DIALOG.XML FOR THISSSSSSSSS
+            View promptView = inflater.inflate(R.layout.dialog_addweight,null);
             builder.setView(promptView);
 
-            Button btn_add = promptView.findViewById(R.id.btn_addExercise);
-            Button btn_cancel = promptView.findViewById(R.id.btn_cancelExercise);
-            final EditText ed_exercise = promptView.findViewById(R.id.addexercise);
+            Button btn_add = promptView.findViewById(R.id.btn_addWeight);
+            Button btn_cancel = promptView.findViewById(R.id.btn_cancelWeight);
+            final EditText ed_weight = promptView.findViewById(R.id.addweight);
 
             btn_add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String exercise = ed_exercise.getText().toString();
-                    Log.d("Tag",""+exercise);
-                    if(TextUtils.isEmpty(exercise)) {
-                        ed_exercise.setError("Cannot be empty");
+                    String weight = ed_weight.getText().toString();
+                    Log.d("Tag",""+weight);
+                    if(TextUtils.isEmpty(weight)) {
+                        ed_weight.setError("Cannot be empty");
                     } else {
-                        ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
-                        exerciseActivity.addToListView(exercise);
+                        WeightActivity weightActivity = (WeightActivity) getActivity();
+                        weightActivity.addToListView(weight);
                         dismiss();
                     }
                 }
@@ -105,7 +91,5 @@ public class ExerciseActivity extends AppCompatActivity {
             return builder.create();
         }
     }
-*/
-
 
 }

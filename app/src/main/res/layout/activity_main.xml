@@ -53,6 +53,8 @@
         android:textSize="30dp"
         android:background="@drawable/buttonshape"
         android:textColor="@color/white"
+        android:onClick="buttonClicked"
+
         />
     <Button
         android:id="@+id/counter"
@@ -65,7 +67,10 @@
         android:text="timer"
         android:textSize="30dp"
         android:background="@drawable/buttonshape"
-        android:textColor="@color/white"        />
+        android:textColor="@color/white"
+        android:onClick="buttonClicked"
+
+        />
 
 
 
