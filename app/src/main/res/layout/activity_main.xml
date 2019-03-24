@@ -12,7 +12,7 @@
         android:id="@+id/barbell"
         android:layout_width="match_parent"
         android:layout_height="205dp"
-        android:src="@drawable/barbell2"
+        android:src="@drawable/barbelllogo"
         tools:ignore="MissingConstraints" />
 
     <TextClock

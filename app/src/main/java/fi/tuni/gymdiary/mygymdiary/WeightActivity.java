@@ -10,12 +10,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class WeightActivity extends AppCompatActivity {
     private ListView listView;
@@ -37,16 +40,28 @@ public class WeightActivity extends AppCompatActivity {
     }
 
     protected void setListView() {
-        adapter=new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,
-                listItems);
+     /*   adapter=new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_2,
+                listItems);*/
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_2, android.R.id.text1, listItems) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+                text1.setText(new Date().toString());
+                text2.setText(listItems.get(position));
+                return view;
+            }
+        };
         listView.setAdapter(adapter);
     }
 
     protected void addToListView(String weight) {
         Log.d("Tag","ADDING");
         listItems.add(weight);
-        adapter.notifyDataSetChanged();
+       // adapter.notifyDataSetChanged();
     }
 
     public static class MyWeightDialog extends DialogFragment {

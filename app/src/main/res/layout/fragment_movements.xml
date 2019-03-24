@@ -18,7 +18,7 @@
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:src="@drawable/plussign"
+        android:src="@drawable/plus"
         />
 
 </android.support.constraint.ConstraintLayout>
