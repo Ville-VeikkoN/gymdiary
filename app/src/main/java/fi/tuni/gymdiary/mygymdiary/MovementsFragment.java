@@ -33,7 +33,7 @@ public class MovementsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_movements, container, false);
-        listView = (ListView) view.findViewById(R.id.exerciselist);
+        listView = (ListView) view.findViewById(R.id.movementlist);
         listItems=new ArrayList<>();
         fab = view.findViewById(R.id.movementsfab);
         setListeners();

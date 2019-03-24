@@ -50,7 +50,16 @@ public class ExerciseActivity extends AppCompatActivity {
         //METODIN KUTSU
     }
 
- /*   protected void replaceFragment(Class fragmentClass) {
+    protected void replaceFragment(ExerciseFragment fragment) {
+        Log.d("Tag","Replacinfgg");
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment,"exercisesFragment");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+     /*   protected void replaceFragment(Class fragmentClass) {
         Fragment fragment = null;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
@@ -63,13 +72,5 @@ public class ExerciseActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.fragment1, fragment)
                 .commit();
     } */
-    protected void replaceFragment(ExerciseFragment fragment) {
-        Log.d("Tag","Replacinfgg");
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment,"exercisesFragment");
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
 
 }
