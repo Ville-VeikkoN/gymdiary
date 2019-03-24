@@ -36,7 +36,7 @@ public class ExerciseActivity extends AppCompatActivity {
         }
     }
 
-    protected void onClick(View view) {
+    public void onClick(View view) {
         Log.d("Tag","WEhadad");
     }
 

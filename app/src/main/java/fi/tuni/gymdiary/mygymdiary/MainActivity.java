@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    protected void buttonClicked(View v) {
+    public void buttonClicked(View v) {
         if(v.getId() == R.id.exercises) {
             Intent i = new Intent(this, ExerciseActivity.class);
             startActivity(i);

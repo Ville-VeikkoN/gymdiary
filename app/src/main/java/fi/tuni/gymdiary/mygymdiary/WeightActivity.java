@@ -34,7 +34,7 @@ public class WeightActivity extends AppCompatActivity {
         setListView();
     }
 
-    protected void onClick(View view) {
+    public void onClick(View view) {
         MyWeightDialog myDialog = new MyWeightDialog();
         myDialog.show(getSupportFragmentManager(),"tag");
     }
