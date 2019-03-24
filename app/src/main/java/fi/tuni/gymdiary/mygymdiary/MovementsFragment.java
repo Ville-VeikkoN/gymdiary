@@ -67,8 +67,9 @@ public class MovementsFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Log.d("MyTag", position +"  " + parent.getAdapter().getItem(position));
-                    ExerciseFragment exerciseFragment = (ExerciseFragment) getFragmentManager().findFragmentById(R.id.fragment2);
+                    ExerciseFragment exerciseFragment = new ExerciseFragment();
                     exerciseFragment.exerciseSelected(parent.getAdapter().getItem(position));
+                    ((ExerciseActivity) getActivity()).replaceFragment(exerciseFragment);
                 }
         });
 
@@ -98,8 +99,8 @@ public class MovementsFragment extends Fragment {
                     if(TextUtils.isEmpty(exercise)) {
                         ed_exercise.setError("Cannot be empty");
                     } else {
-                        MovementsFragment movementsFragment = (MovementsFragment) getFragmentManager().findFragmentById(R.id.fragment1);
-                        movementsFragment.addToListView(exercise);
+                        ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
+                        exerciseActivity.addToMovementsListView(exercise);
                         dismiss();
                     }
                 }

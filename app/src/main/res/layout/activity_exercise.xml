@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_container"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
-    <fragment
-        android:id="@+id/fragment1"
-        android:name="fi.tuni.gymdiary.mygymdiary.MovementsFragment"
-        android:layout_width="0dp"
-        android:layout_weight="0.5"
-        android:layout_height="match_parent">
 
-    </fragment>
 
-    <fragment
-        android:id="@+id/fragment2"
-        android:name="fi.tuni.gymdiary.mygymdiary.ExerciseFragment"
-        android:layout_width="0dp"
-        android:layout_weight="0.5"
-        android:layout_height="match_parent">
 
-    </fragment>
 
-</LinearLayout>
+</FrameLayout>
