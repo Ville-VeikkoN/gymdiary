@@ -1,10 +1,13 @@
 package fi.tuni.gymdiary.mygymdiary;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,7 +23,11 @@ public class CounterActivity extends AppCompatActivity {
     TextView counterTime;
     IntentFilter filter;
     MyBroadCastReceiver broadCastReceiver;
-    boolean receiverRegistered = false;
+    boolean bound = false;
+    ServiceConnection sConn;
+    Intent intent;
+    CounterService service;
+    boolean receiverRegistered;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,10 +38,14 @@ public class CounterActivity extends AppCompatActivity {
         counterTime = findViewById(R.id.counterTextView);
         filter = new IntentFilter("fi.tuni.gymdiary.mygymdiary.ONTICK");
         broadCastReceiver = new MyBroadCastReceiver();
+        Intent intent = new Intent(this, CounterService.class);
+
+        setServiceConnection();
+        setListeners();
+
         registerReceiver(broadCastReceiver,filter);
         receiverRegistered = true;
-
-        setListeners();
+        bindService(intent, sConn, BIND_AUTO_CREATE);
     }
 
     protected void setListeners() {
@@ -50,25 +61,15 @@ public class CounterActivity extends AppCompatActivity {
 
     public void onCLickHandler(View view) {
         if(view.getId() == R.id.selectbtn) {
-            if(!receiverRegistered) {
-                registerReceiver(broadCastReceiver, filter);
-                receiverRegistered = true;
-            }
-            Intent intent = new Intent(this, CounterService.class);
             int seconds = counterPicker.getCurrentHour()*60 + counterPicker.getCurrentMinute();
-            intent.putExtra("counterTime", seconds);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startService(intent);
+       //     service.setCounterTime(seconds);
+            service.startCounter(seconds);
             counterPicker.setEnabled(false);
         } else if(view.getId() == R.id.resetbtn) {
+            service.stopCounter();
             counterPicker.setCurrentHour(0);
             counterPicker.setCurrentMinute(0);
             counterPicker.setEnabled(true);
-            if(receiverRegistered) {
-                stopService(new Intent(this, CounterService.class));
-                unregisterReceiver(broadCastReceiver);
-                receiverRegistered = false;
-            }
         }
     }
     class MyBroadCastReceiver extends BroadcastReceiver {
@@ -90,6 +91,25 @@ public class CounterActivity extends AppCompatActivity {
         if(receiverRegistered) {
             unregisterReceiver(broadCastReceiver);
         }
+        if(bound) {
+            unbindService(sConn);
+            bound = false;
+        }
         super.onDestroy();
+    }
+
+    protected void setServiceConnection() {
+        sConn = new ServiceConnection() {
+            public void onServiceConnected(ComponentName name, IBinder binder) {
+                Log.i("MyTag", "MainActivity onServiceConnected");
+                service = ((CounterService.MyBinder) binder).getService();
+                bound = true;
+            }
+
+            public void onServiceDisconnected(ComponentName name) {
+                Log.i("MyTag", "MainActivity onServiceDisconnected");
+                bound = false;
+            }
+        };
     }
 }
