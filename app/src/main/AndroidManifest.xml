@@ -19,6 +19,7 @@
         <activity android:name=".ExerciseActivity" />
         <activity android:name=".CounterActivity" />
         <activity android:name=".WeightActivity" />
+        <service android:name=".CounterService"></service>
     </application>
 
 </manifest>
