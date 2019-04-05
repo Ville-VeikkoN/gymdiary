@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 public class MovementsFragment extends Fragment {
     View view;
+    MyDbHelper dbHelper;
     private ListView listView;
     ArrayList<String> listItems;
     ArrayAdapter<String> adapter;
@@ -33,6 +34,7 @@ public class MovementsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_movements, container, false);
+        dbHelper = new MyDbHelper(getActivity());
         listView = (ListView) view.findViewById(R.id.movementlist);
         listItems=new ArrayList<>();
         fab = view.findViewById(R.id.movementsfab);
@@ -46,11 +48,16 @@ public class MovementsFragment extends Fragment {
                 android.R.layout.simple_list_item_1,
                 listItems);
         listView.setAdapter(adapter);
+        ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
+        exerciseActivity.setMovements();
+        //    listItems = dbHelper.getAllExercises();
+       // adapter.notifyDataSetChanged();
     }
 
-    protected void addToListView(String exercise) {
-        Log.d("Tag","ADDING");
-        listItems.add(exercise);
+    protected void addToListView(Exercise exercise) {
+        listItems.add(exercise.getExercise());
+        Log.d("MyTag","after db calling "+exercise.getExercise());
+
         adapter.notifyDataSetChanged();
     }
 
@@ -66,10 +73,12 @@ public class MovementsFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Log.d("MyTag", position +"  " + parent.getAdapter().getItem(position));
+                    Exercise exercise = new Exercise(parent.getAdapter().getItem(position).toString());
                     ExerciseFragment exerciseFragment = new ExerciseFragment();
-                    exerciseFragment.exerciseSelected(parent.getAdapter().getItem(position));
-                    ((ExerciseActivity) getActivity()).replaceFragment(exerciseFragment);
+                    ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
+                    exerciseActivity.setSelectedExercise(exercise);
+                    exerciseFragment.exerciseSelected(exercise);
+                    exerciseActivity.replaceFragment(exerciseFragment);
                 }
         });
 
@@ -94,13 +103,13 @@ public class MovementsFragment extends Fragment {
             btn_add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String exercise = ed_exercise.getText().toString();
-                    Log.d("Tag",""+exercise);
-                    if(TextUtils.isEmpty(exercise)) {
+                    if(TextUtils.isEmpty(ed_exercise.getText().toString())) {
                         ed_exercise.setError("Cannot be empty");
                     } else {
+                        Log.d("MyTag","Calls ExerciseActivity method");
+                        Exercise exercise = new Exercise(ed_exercise.getText().toString());
                         ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
-                        exerciseActivity.addToMovementsListView(exercise);
+                        exerciseActivity.addMovement(exercise);
                         dismiss();
                     }
                 }

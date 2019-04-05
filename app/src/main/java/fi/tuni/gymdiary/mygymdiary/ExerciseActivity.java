@@ -23,38 +23,66 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class ExerciseActivity extends AppCompatActivity {
+    MyDbHelper dbHelper;
+    Exercise selectedExercise;
+
+    MovementsFragment firstFragment;
+    ExerciseFragment secondFragment;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
+        dbHelper = new MyDbHelper(this);
+        firstFragment = new MovementsFragment();
+
         if(findViewById(R.id.fragment_container) != null) {
             if (savedInstanceState != null) {
                 return;
             }
-            MovementsFragment firstFragment = new MovementsFragment();
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,firstFragment, "movementsFragment").commit();
         }
     }
 
     public void onClick(View view) {
-        Log.d("Tag","WEhadad");
+        Log.d("MyTag","WEhadad");
     }
 
-    protected void addToMovementsListView(String string) {
-        MovementsFragment movementsFragment = (MovementsFragment)  getSupportFragmentManager().findFragmentByTag("movementsFragment");
-        movementsFragment.addToListView(string);
+    protected void setMovements() {
+        Log.d("MyTag","setMovements " + dbHelper.getAllExercises());
+
+        ArrayList<Exercise> movementsList = dbHelper.getAllExercises();
+        for(Exercise e : movementsList) {
+            firstFragment.addToListView(e);
+            Log.d("MyTag","exercises" +e.getExercise());
+        }
     }
 
-    protected void addToExerciseListView() {
-        ExerciseFragment exerciseFragment = (ExerciseFragment)  getSupportFragmentManager().findFragmentByTag("exerciseFragment");
-        //METODIN KUTSU
+    protected void addMovement(Exercise exercise) {
+        dbHelper.addExercise(exercise);
+        firstFragment.addToListView(exercise);
+    }
+
+    protected void setActivities() {
+        Log.d("MyTag","setMovements " + dbHelper.getAllActivities());
+
+        ArrayList<Activity> activityList = dbHelper.getAllActivities();
+        for(Activity a : activityList) {
+            secondFragment.addToListView(a);
+        }
+    }
+
+    protected void addActivity(Activity activity) {
+        dbHelper.addActivity(activity);
+        secondFragment.addToListView(activity);
     }
 
     protected void replaceFragment(ExerciseFragment fragment) {
         Log.d("Tag","Replacinfgg");
+        secondFragment = fragment;
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment,"exercisesFragment");
+        fragmentTransaction.replace(R.id.fragment_container, secondFragment,"exerciseFragment");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -73,4 +101,12 @@ public class ExerciseActivity extends AppCompatActivity {
                 .commit();
     } */
 
+     public void setSelectedExercise(Exercise exercise) {
+         this.selectedExercise = exercise;
+
+     }
+
+     public Exercise getSelectedExercise() {
+         return selectedExercise;
+     }
 }

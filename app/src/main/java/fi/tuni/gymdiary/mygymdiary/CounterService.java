@@ -12,7 +12,7 @@ public class CounterService extends Service {
     MyBinder binder = new MyBinder();
     private int counterTime;
     private Intent i;
-    CountDownTimer countDownTimer;
+    CountDownTimer countDownTimer = null;
 
 /*
     @Override
@@ -55,7 +55,9 @@ public class CounterService extends Service {
     }
 
     public void stopCounter() {
-        countDownTimer.cancel();
+        if(countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     }
 
     public IBinder onBind(Intent intent) {
