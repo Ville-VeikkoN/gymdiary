@@ -64,9 +64,9 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     protected void setActivities() {
-        Log.d("MyTag","setMovements " + dbHelper.getAllActivities());
+        Log.d("MyTag","setMovements " + dbHelper.getAllActivitiesByExercise(getSelectedExercise()));
 
-        ArrayList<Activity> activityList = dbHelper.getAllActivities();
+        ArrayList<Activity> activityList = dbHelper.getAllActivitiesByExercise(getSelectedExercise());
         for(Activity a : activityList) {
             secondFragment.addToListView(a);
         }

@@ -74,6 +74,7 @@ public class MovementsFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Exercise exercise = new Exercise(parent.getAdapter().getItem(position).toString());
+                    exercise.setId((int) id);
                     ExerciseFragment exerciseFragment = new ExerciseFragment();
                     ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
                     exerciseActivity.setSelectedExercise(exercise);

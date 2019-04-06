@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -117,10 +118,12 @@ public class MyDbHelper extends SQLiteOpenHelper {
         return exerciseList;
     }
 
-    public ArrayList getAllActivities() {
+    public ArrayList getAllActivitiesByExercise(Exercise exercise) {
         ArrayList<Activity> activityList = new ArrayList<Activity>();
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + ACTIVITY_TABLE;
+        String selectQuery = "SELECT  * FROM " + ACTIVITY_TABLE +" WHERE "+KEY_EXERCISE_ID +" = "+exercise.getId();
+
+        Log.d("MyTag", ""+selectQuery);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

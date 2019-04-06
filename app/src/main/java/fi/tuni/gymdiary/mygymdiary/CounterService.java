@@ -13,6 +13,7 @@ public class CounterService extends Service {
     private int counterTime;
     private Intent i;
     CountDownTimer countDownTimer = null;
+    boolean counterOn;
 
 /*
     @Override
@@ -37,6 +38,7 @@ public class CounterService extends Service {
     }*/
 
     public void startCounter(int seconds) {
+        counterOn = true;
         int counterTime = seconds*1000;
         i = new Intent("fi.tuni.gymdiary.mygymdiary.ONTICK");
         countDownTimer = new CountDownTimer(counterTime, 1000) {
@@ -56,6 +58,7 @@ public class CounterService extends Service {
 
     public void stopCounter() {
         if(countDownTimer != null) {
+            counterOn = false;
             countDownTimer.cancel();
         }
     }
@@ -74,7 +77,12 @@ public class CounterService extends Service {
     @Override
     public void onDestroy() {
         Log.d("MyTag", "OnDestroy");
+        counterOn = false;
         super.onDestroy();
+    }
+
+    public boolean isCounterOn() {
+        return counterOn;
     }
 
 

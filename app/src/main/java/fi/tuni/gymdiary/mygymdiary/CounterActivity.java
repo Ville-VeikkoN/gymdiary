@@ -61,10 +61,13 @@ public class CounterActivity extends AppCompatActivity {
 
     public void onCLickHandler(View view) {
         if(view.getId() == R.id.selectbtn) {
-            int seconds = counterPicker.getCurrentHour()*60 + counterPicker.getCurrentMinute();
-       //     service.setCounterTime(seconds);
-            service.startCounter(seconds);
-            counterPicker.setEnabled(false);
+            if(!service.isCounterOn()) {
+                int seconds = counterPicker.getCurrentHour()*60 + counterPicker.getCurrentMinute();
+                //     service.setCounterTime(seconds);
+                service.startCounter(seconds);
+                counterPicker.setEnabled(false);
+            }
+
         } else if(view.getId() == R.id.resetbtn) {
             service.stopCounter();
             counterPicker.setCurrentHour(0);
