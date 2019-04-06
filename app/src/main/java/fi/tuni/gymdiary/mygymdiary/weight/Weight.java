@@ -1,4 +1,4 @@
-package fi.tuni.gymdiary.mygymdiary;
+package fi.tuni.gymdiary.mygymdiary.weight;
 
 import java.util.Date;
 

@@ -1,27 +1,24 @@
-package fi.tuni.gymdiary.mygymdiary;
+package fi.tuni.gymdiary.mygymdiary.exercise;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MovementsFragment extends Fragment {
+import fi.tuni.gymdiary.mygymdiary.MyDbHelper;
+import fi.tuni.gymdiary.mygymdiary.R;
+
+public class ExercisesFragment extends Fragment {
     View view;
     MyDbHelper dbHelper;
     private ListView listView;
@@ -75,55 +72,14 @@ public class MovementsFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Exercise exercise = new Exercise(parent.getAdapter().getItem(position).toString());
                     exercise.setId((int) id);
-                    ExerciseFragment exerciseFragment = new ExerciseFragment();
+                    SetsFragment setsFragment = new SetsFragment();
                     ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
                     exerciseActivity.setSelectedExercise(exercise);
-                    exerciseFragment.exerciseSelected(exercise);
-                    exerciseActivity.replaceFragment(exerciseFragment);
+                    setsFragment.exerciseSelected(exercise);
+                    exerciseActivity.replaceFragment(setsFragment);
                 }
         });
 
     }
 
-
-    public static class MyExerciseDialog extends DialogFragment {
-        @Override
-        public Dialog onCreateDialog(final Bundle savedInstanceState) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            // Get the layout inflater
-            final LayoutInflater inflater = requireActivity().getLayoutInflater();
-            // Inflate and set the layout for the dialog
-            // Pass null as the parent view because its going in the dialog layout
-            View promptView = inflater.inflate(R.layout.dialog_addexercise,null);
-            builder.setView(promptView);
-
-            Button btn_add = promptView.findViewById(R.id.btn_addExercise);
-            Button btn_cancel = promptView.findViewById(R.id.btn_cancelExercise);
-            final EditText ed_exercise = promptView.findViewById(R.id.addexercise);
-
-            btn_add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(TextUtils.isEmpty(ed_exercise.getText().toString())) {
-                        ed_exercise.setError("Cannot be empty");
-                    } else {
-                        Log.d("MyTag","Calls ExerciseActivity method");
-                        Exercise exercise = new Exercise(ed_exercise.getText().toString());
-                        ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
-                        exerciseActivity.addMovement(exercise);
-                        dismiss();
-                    }
-                }
-            });
-
-            btn_cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismiss();
-                }
-            });
-
-            return builder.create();
-        }
-    }
 }

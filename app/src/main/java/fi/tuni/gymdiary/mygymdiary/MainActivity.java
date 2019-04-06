@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import fi.tuni.gymdiary.mygymdiary.counter.CounterActivity;
+import fi.tuni.gymdiary.mygymdiary.exercise.ExerciseActivity;
+import fi.tuni.gymdiary.mygymdiary.weight.WeightActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

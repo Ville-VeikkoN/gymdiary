@@ -1,20 +1,14 @@
-package fi.tuni.gymdiary.mygymdiary;
+package fi.tuni.gymdiary.mygymdiary.counter;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Binder;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
 
-import java.io.File;
-import java.io.IOException;
+import fi.tuni.gymdiary.mygymdiary.R;
 
 public class CounterService extends Service {
 

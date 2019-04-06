@@ -1,4 +1,4 @@
-package fi.tuni.gymdiary.mygymdiary;
+package fi.tuni.gymdiary.mygymdiary.counter;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import java.util.concurrent.TimeUnit;
+import fi.tuni.gymdiary.mygymdiary.R;
 
 public class CounterActivity extends AppCompatActivity {
 

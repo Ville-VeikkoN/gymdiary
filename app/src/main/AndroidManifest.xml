@@ -16,10 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ExerciseActivity" />
-        <activity android:name=".CounterActivity" />
-        <activity android:name=".WeightActivity" />
-        <service android:name=".CounterService"></service>
+        <activity android:name=".exercise.ExerciseActivity" />
+        <activity android:name=".counter.CounterActivity" />
+        <activity android:name=".weight.WeightActivity" />
+        <service android:name=".counter.CounterService"></service>
     </application>
 
 </manifest>

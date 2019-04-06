@@ -7,12 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.nio.file.WatchEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+
+import fi.tuni.gymdiary.mygymdiary.exercise.Activity;
+import fi.tuni.gymdiary.mygymdiary.exercise.Exercise;
+import fi.tuni.gymdiary.mygymdiary.weight.Weight;
 
 public class MyDbHelper extends SQLiteOpenHelper {
 
