@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class Exercise {
 
-    public int id;
+    private int id;
 
-    public String exercise;
+    private String exercise;
 
     public Exercise() {};
 

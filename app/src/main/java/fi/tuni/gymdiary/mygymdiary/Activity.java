@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class Activity {
 
-    public int id;
-    public int exerciseId;
-    public int sets;
-    public int reps;
-    public double weight;
-    public Date date;
+    private int id;
+    private int exerciseId;
+    private int sets;
+    private int reps;
+    private double weight;
+    private Date date;
 
     public Activity() {};
 

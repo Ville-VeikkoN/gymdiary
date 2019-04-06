@@ -1,11 +1,20 @@
 package fi.tuni.gymdiary.mygymdiary;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
+
+import java.io.File;
+import java.io.IOException;
 
 public class CounterService extends Service {
 
@@ -14,28 +23,7 @@ public class CounterService extends Service {
     private Intent i;
     CountDownTimer countDownTimer = null;
     boolean counterOn;
-
-/*
-    @Override
-    public int onStartCommand(final Intent intent, int flags, int startId) {
-        System.out.println("onstartcommand");                                                       //////////////
-        counterTime = intent.getIntExtra("counterTime",1) *1000;
-        i = new Intent("fi.tuni.gymdiary.mygymdiary.ONTICK");
-        new CountDownTimer(counterTime, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                i.putExtra("counterTime",""+millisUntilFinished);
-                System.out.println(millisUntilFinished);                                                                                            /////////////
-                sendBroadcast(i);
-            }
-
-            public void onFinish() {
-
-
-            }
-        }.start();
-        return super.onStartCommand(intent, flags, startId);
-    }*/
+    MediaPlayer mp = null;
 
     public void startCounter(int seconds) {
         counterOn = true;
@@ -50,8 +38,8 @@ public class CounterService extends Service {
             }
 
             public void onFinish() {
-
-
+                playSound();
+                counterOn = false;
             }
         }.start();
     }
@@ -78,6 +66,9 @@ public class CounterService extends Service {
     public void onDestroy() {
         Log.d("MyTag", "OnDestroy");
         counterOn = false;
+        if(mp != null) {
+            mp.release();
+        }
         super.onDestroy();
     }
 
@@ -85,5 +76,17 @@ public class CounterService extends Service {
         return counterOn;
     }
 
+    public void playSound() {
+        try {
+            if(mp != null) {
+                mp.reset();
+                mp.release();
+            }
+            mp = MediaPlayer.create(getApplicationContext(), R.raw.beep);
+            mp.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

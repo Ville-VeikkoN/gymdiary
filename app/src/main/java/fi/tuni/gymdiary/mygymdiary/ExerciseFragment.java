@@ -27,7 +27,7 @@ public class ExerciseFragment extends Fragment {
     TextView textView;
     ListView listView;
     Exercise exercise;
-    ArrayList<String> listItems;
+    ArrayList<Activity> listItems;
     ArrayAdapter<String> adapter;
     FloatingActionButton fab;
 
@@ -55,9 +55,11 @@ public class ExerciseFragment extends Fragment {
                 View view = super.getView(position, convertView, parent);
                 TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                text1.setText(dateFormat.format(new Date()).toString());
-                text2.setText(listItems.get(position));
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+                Activity activity = listItems.get(position);
+                text1.setText(activity.getSets()+" x "+activity.getReps()+" x "+activity.getWeight() + " kg");
+                text1.setTextSize(20);
+                text2.setText(dateFormat.format(activity.getDate()));
                 return view;
             }
         };
@@ -69,8 +71,8 @@ public class ExerciseFragment extends Fragment {
     }
 
     protected void addToListView(Activity activity) {
-        String activityString = activity.getSets()+"x"+activity.getReps()+"x"+activity.getWeight();
-        listItems.add(activityString);
+        String activityString = activity.getSets()+" x "+activity.getReps()+" x "+activity.getWeight()+" kg";
+        listItems.add(activity);
      //   listItems.add(exercise.getExercise());
       //  Log.d("MyTag","after db calling "+exercise.getExercise());
 

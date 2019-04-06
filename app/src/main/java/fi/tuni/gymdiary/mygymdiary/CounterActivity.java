@@ -65,14 +65,14 @@ public class CounterActivity extends AppCompatActivity {
                 int seconds = counterPicker.getCurrentHour()*60 + counterPicker.getCurrentMinute();
                 //     service.setCounterTime(seconds);
                 service.startCounter(seconds);
-                counterPicker.setEnabled(false);
+          //      counterPicker.setEnabled(false);
             }
 
         } else if(view.getId() == R.id.resetbtn) {
             service.stopCounter();
             counterPicker.setCurrentHour(0);
             counterPicker.setCurrentMinute(0);
-            counterPicker.setEnabled(true);
+          //  counterPicker.setEnabled(true);
         }
     }
     class MyBroadCastReceiver extends BroadcastReceiver {
@@ -83,9 +83,9 @@ public class CounterActivity extends AppCompatActivity {
             int minutes = countInSeconds / 60;
             int seconds = countInSeconds % 60;
             counterTime.setText(minutes+"min"+seconds+"sec");
-            if(minutes==0 && seconds==0) {
-                counterPicker.setEnabled(true);
-            }
+        //    if(minutes==0 && seconds==0) {
+         //       counterPicker.setEnabled(true);
+        //    }
         }
     }
 

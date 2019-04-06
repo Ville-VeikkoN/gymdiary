@@ -23,8 +23,9 @@ import java.util.Date;
 
 public class WeightActivity extends AppCompatActivity {
     private ListView listView;
-    ArrayList<String> listItems;
+    ArrayList<Weight> listItems;
     ArrayAdapter<String> adapter;
+    MyDbHelper dbHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +33,8 @@ public class WeightActivity extends AppCompatActivity {
         setContentView(R.layout.activity_weight);
         listView = (ListView) findViewById(R.id.weightlist);
         listItems=new ArrayList<>();
+        dbHelper = new MyDbHelper(this);
+        setWeights();
         setListView();
     }
 
@@ -50,19 +53,26 @@ public class WeightActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                text1.setText(dateFormat.format(new Date()).toString());
-                text2.setText(listItems.get(position));
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+                Weight weight = listItems.get(position);
+                text1.setText(weight.getWeight()+" kg");
+                text1.setTextSize(20);
+                text2.setText(dateFormat.format(weight.getDate().getTime()));
                 return view;
             }
         };
         listView.setAdapter(adapter);
     }
 
-    protected void addToListView(String weight) {
+    protected void setWeights() {
+        listItems = dbHelper.getAllBodyWeights();
+    }
+
+    protected void addBodyWeight(Weight weight) {
         Log.d("Tag","ADDING");
         listItems.add(weight);
-       // adapter.notifyDataSetChanged();
+        dbHelper.addBodyWeight(weight);
+        // adapter.notifyDataSetChanged();
     }
 
     public static class MyWeightDialog extends DialogFragment {
@@ -85,13 +95,14 @@ public class WeightActivity extends AppCompatActivity {
             btn_add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String weight = ed_weight.getText().toString();
-                    Log.d("Tag",""+weight);
-                    if(TextUtils.isEmpty(weight)) {
+                    if(TextUtils.isEmpty(ed_weight.getText().toString())) {
                         ed_weight.setError("Cannot be empty");
                     } else {
                         WeightActivity weightActivity = (WeightActivity) getActivity();
-                        weightActivity.addToListView(weight);
+                        Weight weight = new Weight();
+                        weight.setWeight(Double.parseDouble(ed_weight.getText().toString()));
+                        weight.setDate(new Date());
+                        weightActivity.addBodyWeight(weight);
                         dismiss();
                     }
                 }

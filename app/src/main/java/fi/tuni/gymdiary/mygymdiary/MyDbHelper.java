@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.nio.file.WatchEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -85,15 +86,60 @@ public class MyDbHelper extends SQLiteOpenHelper {
     public void addActivity(Activity a) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
         values.put(KEY_DATE, dateFormat.format(a.getDate()));
         values.put(KEY_EXERCISE_ID, a.getExerciseId());
-        values.put(KEY_WEIGHT, a.getWeight());
-        values.put(KEY_REPS, a.getReps());
         values.put(KEY_SETS, a.getSets());
+        values.put(KEY_REPS, a.getReps());
+        values.put(KEY_WEIGHT, a.getWeight());
+
 
         db.insert(ACTIVITY_TABLE, null, values);
         db.close();
+    }
+
+    public void addBodyWeight(Weight weight) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+        values.put(KEY_DATE, dateFormat.format(weight.getDate()));
+        values.put(KEY_WEIGHT, weight.getWeight());
+        db.insert(WEIGHT_TABLE, null, values);
+        db.close();
+    }
+
+    public ArrayList getAllBodyWeights() {
+        ArrayList<Weight> weightList = new ArrayList<Weight>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + WEIGHT_TABLE;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Weight weight = new Weight();
+                weight.setId(Integer.parseInt(cursor.getString(0)));
+                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+                Date date = new Date();
+                try {
+                    date = simpleDateFormat.parse(cursor.getString(1));
+                    Log.d("MyTag", ""+simpleDateFormat.format(date));
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    Log.d("MyTag", e.toString());
+
+                }
+                weight.setDate(date);
+                weight.setWeight(Double.parseDouble(cursor.getString(2)));
+                weightList.add(weight);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return contact list
+        return weightList;
     }
 
     public ArrayList getAllExercises() {
@@ -113,7 +159,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 exerciseList.add(exercise);
             } while (cursor.moveToNext());
         }
-
+        db.close();
         // return contact list
         return exerciseList;
     }
@@ -133,24 +179,25 @@ public class MyDbHelper extends SQLiteOpenHelper {
             do {
                 Activity activity = new Activity();
                 activity.setId(Integer.parseInt(cursor.getString(0)));
-                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MMM-yyyy HH:mm");
                 Date date = new Date();
                 try {
                     date = simpleDateFormat.parse(cursor.getString(1));
-                    System.out.println(date);
+                    Log.d("MyTag", ""+simpleDateFormat.format(date));
 
                 } catch (ParseException e) {
+                    Log.d("MyTag", e.toString());
                     e.printStackTrace();
                 }
                 activity.setDate(date);
                 activity.setExerciseId(Integer.parseInt(cursor.getString(2)));
-                activity.setWeight(Integer.parseInt(cursor.getString(3)));
+                activity.setSets(Integer.parseInt(cursor.getString(3)));
                 activity.setReps(Integer.parseInt(cursor.getString(4)));
-                activity.setSets(Integer.parseInt(cursor.getString(5)));
+                activity.setWeight(Integer.parseInt(cursor.getString(5)));
                 activityList.add(activity);
             } while (cursor.moveToNext());
         }
-
+        db.close();
         // return contact list
         return activityList;
     }
