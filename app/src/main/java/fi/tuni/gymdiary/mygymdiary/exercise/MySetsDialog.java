@@ -41,13 +41,13 @@ public class MySetsDialog extends DialogFragment {
                 } else {
                     ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
 
-                    Activity activity = new Activity();
-                    activity.setExerciseId(exerciseActivity.getSelectedExercise().getId());
-                    activity.setDate(new Date());
-                    activity.setReps(Integer.parseInt(ed_reps.getText().toString()));
-                    activity.setSets(Integer.parseInt(ed_sets.getText().toString()));
-                    activity.setWeight(Double.parseDouble(ed_weight.getText().toString()));
-                    exerciseActivity.addActivity(activity);
+                    Set set = new Set();
+                    set.setExerciseId(exerciseActivity.getSelectedExercise().getId());
+                    set.setDate(new Date());
+                    set.setReps(Integer.parseInt(ed_reps.getText().toString()));
+                    set.setSets(Integer.parseInt(ed_sets.getText().toString()));
+                    set.setWeight(Double.parseDouble(ed_weight.getText().toString()));
+                    exerciseActivity.addSet(set);
                     dismiss();
 
                     //   exerciseActivity.addToMovementsListView(exercise);

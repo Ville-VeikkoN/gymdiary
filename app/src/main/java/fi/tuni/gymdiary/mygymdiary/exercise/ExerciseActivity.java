@@ -38,7 +38,7 @@ public class ExerciseActivity extends AppCompatActivity {
         Log.d("MyTag","WEhadad");
     }
 
-    protected void setMovements() {
+    protected void setExercises() {
         Log.d("MyTag","setMovements " + dbHelper.getAllExercises());
 
         ArrayList<Exercise> movementsList = dbHelper.getAllExercises();
@@ -48,23 +48,28 @@ public class ExerciseActivity extends AppCompatActivity {
         }
     }
 
-    protected void addMovement(Exercise exercise) {
+    protected void addMExercise(Exercise exercise) {
         dbHelper.addExercise(exercise);
         firstFragment.addToListView(exercise);
     }
 
-    protected void setActivities() {
-        Log.d("MyTag","setMovements " + dbHelper.getAllActivitiesByExercise(getSelectedExercise()));
+    public void deleteSet() {
+        dbHelper.deleteSet(getSelectedExercise().getId());
+        secondFragment.setListView();
+    }
 
-        ArrayList<Activity> activityList = dbHelper.getAllActivitiesByExercise(getSelectedExercise());
-        for(Activity a : activityList) {
+    protected void setSets() {
+        Log.d("MyTag","setMovements " + dbHelper.getAllSetsByExercise(getSelectedExercise()));
+
+        ArrayList<Set> setList = dbHelper.getAllSetsByExercise(getSelectedExercise());
+        for(Set a : setList) {
             secondFragment.addToListView(a);
         }
     }
 
-    protected void addActivity(Activity activity) {
-        dbHelper.addActivity(activity);
-        secondFragment.addToListView(activity);
+    protected void addSet(Set set) {
+        dbHelper.addSet(set);
+        secondFragment.addToListView(set);
     }
 
     protected void replaceFragment(SetsFragment fragment) {

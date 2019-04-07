@@ -38,7 +38,7 @@ public class MyExerciseDialog extends DialogFragment {
                     Log.d("MyTag","Calls ExerciseActivity method");
                     Exercise exercise = new Exercise(ed_exercise.getText().toString());
                     ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
-                    exerciseActivity.addMovement(exercise);
+                    exerciseActivity.addMExercise(exercise);
                     dismiss();
                 }
             }

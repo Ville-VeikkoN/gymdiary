@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import fi.tuni.gymdiary.mygymdiary.exercise.Activity;
+import fi.tuni.gymdiary.mygymdiary.exercise.Set;
 import fi.tuni.gymdiary.mygymdiary.exercise.Exercise;
 import fi.tuni.gymdiary.mygymdiary.weight.Weight;
 
@@ -23,20 +23,20 @@ public class MyDbHelper extends SQLiteOpenHelper {
     //Table names
     private static final String WEIGHT_TABLE = "weight";
     private static final String EXERCISE_TABLE = "exercise";
-    private static final String ACTIVITY_TABLE = "activity";
+    private static final String SET_TABLE = "sets";
 
     //Common columns name
     private static final String KEY_ID = "ID";
     private static final String KEY_DATE = "date";
 
 
-    //Weight and Activity table- columns
+    //Weight and Set table- columns
     private static final String KEY_WEIGHT = "weight";
 
-    //Exercise nad Activity
+    //Exercise nad Set
     private static final String KEY_EXERCISE = "exercise";
 
-    //Activity table- columns
+    //Set table- columns
     private static final String KEY_SETS = "sets";
     private static final String KEY_REPS = "reps";
     private static final String KEY_EXERCISE_ID = "exerciseId";
@@ -51,8 +51,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
             + EXERCISE_TABLE + "(" + KEY_ID + " INTEGER PRIMARY KEY," +KEY_EXERCISE + " TEXT" + ")";
 
     //Create table statement for activity
-    private static final String CREATE_TABLE_ACTIVITY = "CREATE TABLE "
-            + ACTIVITY_TABLE + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_DATE
+    private static final String CREATE_TABLE_SET = "CREATE TABLE "
+            + SET_TABLE + "( " + KEY_ID + " INTEGER PRIMARY KEY," + KEY_DATE
             + " DATE," + KEY_EXERCISE_ID + " INTEGER," + KEY_SETS +" INTEGER,"
             +KEY_REPS +" INTEGER," + KEY_WEIGHT +" REAL" + ")";
 
@@ -66,14 +66,14 @@ public class MyDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_EXERCISE);
         db.execSQL(CREATE_TABLE_WEIGHT);
-        db.execSQL(CREATE_TABLE_ACTIVITY);
+        db.execSQL(CREATE_TABLE_SET);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + WEIGHT_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + EXERCISE_TABLE);
-        db.execSQL("DROP TABLE IF EXISTS " + ACTIVITY_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + SET_TABLE);
         onCreate(db);
     }
 
@@ -85,7 +85,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addActivity(Activity a) {
+    public void addSet(Set a) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
@@ -96,7 +96,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put(KEY_WEIGHT, a.getWeight());
 
 
-        db.insert(ACTIVITY_TABLE, null, values);
+        db.insert(SET_TABLE, null, values);
         db.close();
     }
 
@@ -166,10 +166,10 @@ public class MyDbHelper extends SQLiteOpenHelper {
         return exerciseList;
     }
 
-    public ArrayList getAllActivitiesByExercise(Exercise exercise) {
-        ArrayList<Activity> activityList = new ArrayList<Activity>();
+    public ArrayList getAllSetsByExercise(Exercise exercise) {
+        ArrayList<Set> setList = new ArrayList<Set>();
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + ACTIVITY_TABLE +" WHERE "+KEY_EXERCISE_ID +" = "+exercise.getId();
+        String selectQuery = "SELECT  * FROM " + SET_TABLE +" WHERE "+KEY_EXERCISE_ID +" = "+exercise.getId();
 
         Log.d("MyTag", ""+selectQuery);
 
@@ -179,8 +179,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Activity activity = new Activity();
-                activity.setId(Integer.parseInt(cursor.getString(0)));
+                Set set = new Set();
+                set.setId(Integer.parseInt(cursor.getString(0)));
                 SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MMM-yyyy HH:mm");
                 Date date = new Date();
                 try {
@@ -191,17 +191,26 @@ public class MyDbHelper extends SQLiteOpenHelper {
                     Log.d("MyTag", e.toString());
                     e.printStackTrace();
                 }
-                activity.setDate(date);
-                activity.setExerciseId(Integer.parseInt(cursor.getString(2)));
-                activity.setSets(Integer.parseInt(cursor.getString(3)));
-                activity.setReps(Integer.parseInt(cursor.getString(4)));
-                activity.setWeight(Integer.parseInt(cursor.getString(5)));
-                activityList.add(activity);
+                set.setDate(date);
+                set.setExerciseId(Integer.parseInt(cursor.getString(2)));
+                set.setSets(Integer.parseInt(cursor.getString(3)));
+                set.setReps(Integer.parseInt(cursor.getString(4)));
+                set.setWeight(Integer.parseInt(cursor.getString(5)));
+                setList.add(set);
             } while (cursor.moveToNext());
         }
         db.close();
         // return contact list
-        return activityList;
+        return setList;
+    }
+
+    public void deleteSet(int exerciseId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String deleteQueryQuery = "DELETE FROM" + SET_TABLE +" WHERE " +KEY_EXERCISE_ID+" = " + exerciseId;
+        String[] whereArgs = {KEY_EXERCISE_ID +" = " +exerciseId };        Log.d("MyTag", deleteQueryQuery);
+        String where = KEY_EXERCISE_ID+" = "+exerciseId;
+        db.delete(SET_TABLE,where,null);
+        db.close();
     }
 
 }

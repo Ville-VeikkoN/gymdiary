@@ -2,7 +2,7 @@ package fi.tuni.gymdiary.mygymdiary.exercise;
 
 import java.util.Date;
 
-public class Activity {
+public class Set {
 
     private int id;
     private int exerciseId;
@@ -11,16 +11,16 @@ public class Activity {
     private double weight;
     private Date date;
 
-    public Activity() {};
+    public Set() {};
 
-    public Activity(int sets, int reps, double weight, Date date) {
+    public Set(int sets, int reps, double weight, Date date) {
         this.sets = sets;
         this.reps = reps;
         this.weight = weight;
         this.date = date;
     }
 
-    public Activity(int exerciseId, int sets, int reps, double weight, Date date) {
+    public Set(int exerciseId, int sets, int reps, double weight, Date date) {
         this.exerciseId = exerciseId;
         this.sets = sets;
         this.reps = reps;
