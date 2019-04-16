@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,11 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import fi.tuni.gymdiary.mygymdiary.R;
+import fi.tuni.gymdiary.mygymdiary.weight.Weight;
 
 public class SetsFragment extends Fragment {
     TextView textView;
@@ -54,11 +58,19 @@ public class SetsFragment extends Fragment {
                 View view = super.getView(position, convertView, parent);
                 TextView text1 = (TextView) view.findViewById(R.id.text1);
                 TextView text2 = (TextView) view.findViewById(R.id.text2);
+                TextView text3 = (TextView) view.findViewById(R.id.text3);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
                 Set set = listItems.get(position);
                 text1.setText(set.getSets()+" x "+ set.getReps()+" x "+ set.getWeight() + " kg");
                 text1.setTextSize(20);
                 text2.setText(dateFormat.format(set.getDate()));
+
+                long diff = new Date().getTime() - set.getDate().getTime();
+                long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+
+                text3.setText(days +" days ago");
+                text3.setTextColor(getResources().getColor(R.color.positive));
+
                 return view;
             }
         };

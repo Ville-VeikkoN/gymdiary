@@ -195,7 +195,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 set.setExerciseId(Integer.parseInt(cursor.getString(2)));
                 set.setSets(Integer.parseInt(cursor.getString(3)));
                 set.setReps(Integer.parseInt(cursor.getString(4)));
-                set.setWeight(Integer.parseInt(cursor.getString(5)));
+                set.setWeight(Double.parseDouble(cursor.getString(5)));
                 setList.add(set);
             } while (cursor.moveToNext());
         }

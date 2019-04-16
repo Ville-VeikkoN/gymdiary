@@ -46,13 +46,27 @@ public class ExercisesFragment extends Fragment {
     }
 
     protected void setListView() {
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, listItems) {
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.mysimple_list_layout, R.id.text1, listItems) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
-                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                TextView text1 = (TextView) view.findViewById(R.id.text1);
+                TextView text3 = (TextView) view.findViewById(R.id.text3);
+
                 Exercise exercise = listItems.get(position);
                 text1.setText(exercise.getExercise());
+
+                ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
+                int setsAmount = exerciseActivity.getSetsAmount(listItems.get(position));
+
+                if(setsAmount > 0) {
+                    text3.setText(setsAmount+" sets");
+                    text3.setTextColor(getResources().getColor(R.color.positive));
+                } else {
+                    text3.setText("No sets yet");
+                    text3.setTextColor(getResources().getColor(R.color.negative));
+                }
+
                 return view;
             }
 
@@ -99,7 +113,7 @@ public class ExercisesFragment extends Fragment {
                 final Exercise exercise = listItems.get(position);
                 AlertDialog.Builder adb=new AlertDialog.Builder(getContext());
                 adb.setTitle("Delete?");
-                adb.setMessage("Are you sure you want to delete selected weight information");
+                adb.setMessage("Are you sure you want to delete selected exercise and its sets");
                 final int positionToRemove = position;
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Delete", new AlertDialog.OnClickListener() {

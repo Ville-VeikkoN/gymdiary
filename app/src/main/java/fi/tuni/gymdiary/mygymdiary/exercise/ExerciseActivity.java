@@ -67,6 +67,11 @@ public class ExerciseActivity extends AppCompatActivity {
         }
     }
 
+    protected int getSetsAmount(Exercise exercise) {
+        ArrayList<Set> setList = dbHelper.getAllSetsByExercise(exercise);
+        return setList.size();
+    }
+
     protected void addSet(Set set) {
         dbHelper.addSet(set);
         secondFragment.addToListView(set);

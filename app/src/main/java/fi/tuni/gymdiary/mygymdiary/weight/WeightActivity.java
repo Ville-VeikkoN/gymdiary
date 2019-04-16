@@ -62,7 +62,6 @@ public class WeightActivity extends AppCompatActivity {
 
                 if(position > 0) {
                     Weight previousWeight = listItems.get(position-1);
-                    Log.d("MyTag",weight.getWeight()+"  "+previousWeight.getWeight());
                     double difference = weight.getWeight()-previousWeight.getWeight();
                     difference = Math.round(difference*100.0)/100.0;
                     if(difference > 0) {
