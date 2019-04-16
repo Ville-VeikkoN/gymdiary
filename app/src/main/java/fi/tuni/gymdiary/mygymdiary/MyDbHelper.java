@@ -214,6 +214,16 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteAllSets(int exerciseId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+   //     String deleteQueryQuery = "DELETE FROM" + SET_TABLE +" WHERE " +KEY_ID+" = " + setId;
+    //    String[] whereArgs = {KEY_EXERCISE_ID +" = " +setId };
+        //  Log.d("MyTag", deleteQueryQuery);
+        String where = KEY_EXERCISE_ID+" = "+exerciseId;
+        db.delete(SET_TABLE,where,null);
+        db.close();
+    }
+
     public void deleteWeight(int weightId) {
         SQLiteDatabase db = this.getWritableDatabase();
         String deleteQueryQuery = "DELETE FROM" + WEIGHT_TABLE +" WHERE " +KEY_ID+" = " + weightId;
@@ -221,6 +231,15 @@ public class MyDbHelper extends SQLiteOpenHelper {
         //  Log.d("MyTag", deleteQueryQuery);
         String where = KEY_ID+" = "+weightId;
         db.delete(WEIGHT_TABLE,where,null);
+        db.close();
+    }
+
+    public void deleteExercise(int exerciseId) {
+        deleteAllSets(exerciseId);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String where = KEY_ID+" = "+exerciseId;
+        db.delete(EXERCISE_TABLE,where,null);
         db.close();
     }
 

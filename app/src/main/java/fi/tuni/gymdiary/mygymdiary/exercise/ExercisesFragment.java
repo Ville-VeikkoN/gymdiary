@@ -46,6 +46,7 @@ public class ExercisesFragment extends Fragment {
     }
 
     protected void setListView() {
+        listItems.clear();
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.mysimple_list_layout, R.id.text1, listItems) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -81,8 +82,6 @@ public class ExercisesFragment extends Fragment {
     protected void addToListView(Exercise exercise) {
         listItems.add(exercise);
         Log.d("MyTag","after db calling "+exercise.getExercise());
-
-     //   adapter.notifyDataSetChanged();
     }
 
     protected void setListeners() {
@@ -118,8 +117,9 @@ public class ExercisesFragment extends Fragment {
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Delete", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                      //  dbHelper.deleteExercise(exercise.getId());
-                      //  setListView();
+                        ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
+                        exerciseActivity.deleteExercise(exercise.getId());
+                        setListView();
                     }});
                 adb.show();
                 return true;

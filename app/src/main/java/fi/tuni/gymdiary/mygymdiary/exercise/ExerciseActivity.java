@@ -34,10 +34,6 @@ public class ExerciseActivity extends AppCompatActivity {
         }
     }
 
-    public void onClick(View view) {
-        Log.d("MyTag","WEhadad");
-    }
-
     protected void setExercises() {
         Log.d("MyTag","setMovements " + dbHelper.getAllExercises());
 
@@ -50,12 +46,17 @@ public class ExerciseActivity extends AppCompatActivity {
 
     protected void addExercise(Exercise exercise) {
         dbHelper.addExercise(exercise);
-        firstFragment.addToListView(exercise);
+        firstFragment.setListView();
     }
 
     public void deleteSet(int setId) {
         dbHelper.deleteSet(setId);
         secondFragment.setListView();
+    }
+
+    public void deleteExercise(int exerciseId) {
+        dbHelper.deleteExercise(exerciseId);
+        firstFragment.setListView();
     }
 
     protected void setSets() {
