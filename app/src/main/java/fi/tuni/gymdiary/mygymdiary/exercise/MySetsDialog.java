@@ -22,7 +22,7 @@ public class MySetsDialog extends DialogFragment {
         final LayoutInflater inflater = requireActivity().getLayoutInflater();
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        View promptView = inflater.inflate(R.layout.dialog_addactivity,null);
+        View promptView = inflater.inflate(R.layout.dialog_addaset,null);
         builder.setView(promptView);
 
         Button btn_add = promptView.findViewById(R.id.btn_addActivity);

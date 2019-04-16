@@ -1,10 +1,12 @@
 package fi.tuni.gymdiary.mygymdiary.exercise;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,7 @@ public class SetsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exercise, container, false);
         textView = view.findViewById(R.id.textviewExercise);
+        textView.setText(exercise.getExercise());
         listView = view.findViewById(R.id.exerciselist);
         listItems = new ArrayList<>();
         fab = view.findViewById(R.id.exercisefab);
@@ -45,12 +48,12 @@ public class SetsFragment extends Fragment {
                 android.R.layout.simple_list_item_2,
                 listItems);*/
         listItems.clear();
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, listItems) {
+        adapter = new ArrayAdapter(getActivity(), R.layout.mysimple_list_layout, R.id.text1, listItems) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
-                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+                TextView text1 = (TextView) view.findViewById(R.id.text1);
+                TextView text2 = (TextView) view.findViewById(R.id.text2);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
                 Set set = listItems.get(position);
                 text1.setText(set.getSets()+" x "+ set.getReps()+" x "+ set.getWeight() + " kg");
@@ -92,9 +95,26 @@ public class SetsFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ConfirmDeleteDialog deleteDialog = new ConfirmDeleteDialog();
-                deleteDialog.show(getFragmentManager(),"tag");
+                final Set set = listItems.get(position);
+                AlertDialog.Builder adb=new AlertDialog.Builder(getContext());
+                adb.setTitle("Delete?");
+                adb.setMessage("Are you sure you want to delete selected set");
+                final int positionToRemove = position;
+                adb.setNegativeButton("Cancel", null);
+                adb.setPositiveButton("Delete", new AlertDialog.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
+                        exerciseActivity.deleteSet(set.getId());
+                    }});
+                adb.show();
             }
+        /*        ConfirmDeleteDialog deleteDialog = new ConfirmDeleteDialog();
+                Bundle args = new Bundle();
+                Set set = listItems.get(position);
+                args.putInt("setId", set.getId());
+                deleteDialog.setArguments(args);
+                deleteDialog.show(getFragmentManager(),"tag");*/
+            //}
         });
     }
 

@@ -48,13 +48,13 @@ public class ExerciseActivity extends AppCompatActivity {
         }
     }
 
-    protected void addMExercise(Exercise exercise) {
+    protected void addExercise(Exercise exercise) {
         dbHelper.addExercise(exercise);
         firstFragment.addToListView(exercise);
     }
 
-    public void deleteSet() {
-        dbHelper.deleteSet(getSelectedExercise().getId());
+    public void deleteSet(int setId) {
+        dbHelper.deleteSet(setId);
         secondFragment.setListView();
     }
 

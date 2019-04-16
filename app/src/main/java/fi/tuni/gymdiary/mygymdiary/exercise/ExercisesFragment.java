@@ -1,10 +1,13 @@
 package fi.tuni.gymdiary.mygymdiary.exercise;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,17 +15,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import fi.tuni.gymdiary.mygymdiary.MyDbHelper;
 import fi.tuni.gymdiary.mygymdiary.R;
+import fi.tuni.gymdiary.mygymdiary.weight.Weight;
 
 public class ExercisesFragment extends Fragment {
     View view;
     MyDbHelper dbHelper;
     private ListView listView;
-    ArrayList<String> listItems;
+    ArrayList<Exercise> listItems;
     ArrayAdapter<String> adapter;
     FloatingActionButton fab;
 
@@ -41,9 +46,17 @@ public class ExercisesFragment extends Fragment {
     }
 
     protected void setListView() {
-        adapter=new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_list_item_1,
-                listItems);
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, listItems) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                Exercise exercise = listItems.get(position);
+                text1.setText(exercise.getExercise());
+                return view;
+            }
+
+        };
         listView.setAdapter(adapter);
         ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
         exerciseActivity.setExercises();
@@ -52,10 +65,10 @@ public class ExercisesFragment extends Fragment {
     }
 
     protected void addToListView(Exercise exercise) {
-        listItems.add(exercise.getExercise());
+        listItems.add(exercise);
         Log.d("MyTag","after db calling "+exercise.getExercise());
 
-        adapter.notifyDataSetChanged();
+     //   adapter.notifyDataSetChanged();
     }
 
     protected void setListeners() {
@@ -70,14 +83,33 @@ public class ExercisesFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Exercise exercise = new Exercise(parent.getAdapter().getItem(position).toString());
-                    exercise.setId((int) id);
+                    Exercise exercise = listItems.get(position);
+//                    exercise.setId((int) id);
                     SetsFragment setsFragment = new SetsFragment();
                     ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
                     exerciseActivity.setSelectedExercise(exercise);
                     setsFragment.exerciseSelected(exercise);
                     exerciseActivity.replaceFragment(setsFragment);
                 }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final Exercise exercise = listItems.get(position);
+                AlertDialog.Builder adb=new AlertDialog.Builder(getContext());
+                adb.setTitle("Delete?");
+                adb.setMessage("Are you sure you want to delete selected weight information");
+                final int positionToRemove = position;
+                adb.setNegativeButton("Cancel", null);
+                adb.setPositiveButton("Delete", new AlertDialog.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                      //  dbHelper.deleteExercise(exercise.getId());
+                      //  setListView();
+                    }});
+                adb.show();
+                return true;
+            }
         });
 
     }
