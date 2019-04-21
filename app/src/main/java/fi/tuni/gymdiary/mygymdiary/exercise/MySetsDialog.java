@@ -14,14 +14,25 @@ import java.util.Date;
 
 import fi.tuni.gymdiary.mygymdiary.R;
 
+/**
+ * Class for displaying Dialog when Adding Sets.
+ *
+ * @author Ville-Veikko Nieminen
+ * @version 1.8
+ * @since 2019-04-21
+ */
 public class MySetsDialog extends DialogFragment {
+    /**
+     * Method is called when MySetsDialog is created. Sets layout for Dialog.
+     * Listens if Buttons is clicked and acts the way needed.
+     *
+     * @param savedInstanceState Bundle
+     * @return Dialog representing dialog for adding Sets
+     */
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
         final LayoutInflater inflater = requireActivity().getLayoutInflater();
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
         View promptView = inflater.inflate(R.layout.dialog_addaset,null);
         builder.setView(promptView);
 
@@ -49,9 +60,6 @@ public class MySetsDialog extends DialogFragment {
                     set.setWeight(Double.parseDouble(ed_weight.getText().toString()));
                     exerciseActivity.addSet(set);
                     dismiss();
-
-                    //   exerciseActivity.addToMovementsListView(exercise);
-                    //    dismiss();
                 }
             }
         });

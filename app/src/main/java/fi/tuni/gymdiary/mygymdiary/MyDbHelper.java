@@ -16,52 +16,61 @@ import fi.tuni.gymdiary.mygymdiary.exercise.Set;
 import fi.tuni.gymdiary.mygymdiary.exercise.Exercise;
 import fi.tuni.gymdiary.mygymdiary.weight.Weight;
 
+/**
+ * Class for database connection
+ *
+ * @author Ville-Veikko Nieminen
+ * @version 1.8
+ * @since 2019-04-21
+ */
 public class MyDbHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
 
-    //Table names
     private static final String WEIGHT_TABLE = "weight";
     private static final String EXERCISE_TABLE = "exercise";
     private static final String SET_TABLE = "sets";
 
-    //Common columns name
     private static final String KEY_ID = "ID";
     private static final String KEY_DATE = "date";
 
-
-    //Weight and Set table- columns
     private static final String KEY_WEIGHT = "weight";
 
-    //Exercise nad Set
     private static final String KEY_EXERCISE = "exercise";
 
-    //Set table- columns
     private static final String KEY_SETS = "sets";
     private static final String KEY_REPS = "reps";
     private static final String KEY_EXERCISE_ID = "exerciseId";
 
-    //Create table statement for weight
     private static final String CREATE_TABLE_WEIGHT = "CREATE TABLE "
             + WEIGHT_TABLE + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_DATE
             + " DATE," + KEY_WEIGHT + " REAL"  + ")";
 
-    //Create table statement for exercise
     private static final String CREATE_TABLE_EXERCISE = "CREATE TABLE "
             + EXERCISE_TABLE + "(" + KEY_ID + " INTEGER PRIMARY KEY," +KEY_EXERCISE + " TEXT" + ")";
 
-    //Create table statement for activity
     private static final String CREATE_TABLE_SET = "CREATE TABLE "
             + SET_TABLE + "( " + KEY_ID + " INTEGER PRIMARY KEY," + KEY_DATE
             + " DATE," + KEY_EXERCISE_ID + " INTEGER," + KEY_SETS +" INTEGER,"
             +KEY_REPS +" INTEGER," + KEY_WEIGHT +" REAL" + ")";
 
 
+    /**
+     * Constructor for MyDbHelper
+     *
+     * @param context Context
+     */
     public MyDbHelper(Context context){
         super(context,"gymdiaryDatabase",null,DATABASE_VERSION);
 
     };
 
+    /**
+     * Method called when MyDbHelper is created.
+     * Creates tables for exercise, set and weight
+     *
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_EXERCISE);
@@ -69,6 +78,13 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_SET);
     }
 
+    /**
+     * Method called if version number has changed.
+     *
+     * @param db SQLiteDatabase
+     * @param oldVersion Integer containing old version number
+     * @param newVersion Integer containing new version number
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + WEIGHT_TABLE);
@@ -77,6 +93,11 @@ public class MyDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * Adds exercise to database.
+     *
+     * @param e Exercise containing info about exercise
+     */
     public void addExercise(Exercise e) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -85,21 +106,31 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addSet(Set a) {
+    /**
+     * Adds set to database.
+     *
+     * @param s Set containing info about set
+     */
+    public void addSet(Set s) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
-        values.put(KEY_DATE, dateFormat.format(a.getDate()));
-        values.put(KEY_EXERCISE_ID, a.getExerciseId());
-        values.put(KEY_SETS, a.getSets());
-        values.put(KEY_REPS, a.getReps());
-        values.put(KEY_WEIGHT, a.getWeight());
+        values.put(KEY_DATE, dateFormat.format(s.getDate()));
+        values.put(KEY_EXERCISE_ID, s.getExerciseId());
+        values.put(KEY_SETS, s.getSets());
+        values.put(KEY_REPS, s.getReps());
+        values.put(KEY_WEIGHT, s.getWeight());
 
 
         db.insert(SET_TABLE, null, values);
         db.close();
     }
 
+    /**
+     * Adds weight to database.
+     *
+     * @param weight Weight containing info about weight
+     */
     public void addBodyWeight(Weight weight) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -110,6 +141,11 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Gets all weights from database and returns them.
+     *
+     * @return ArrayList representing weights from database
+     */
     public ArrayList getAllBodyWeights() {
         ArrayList<Weight> weightList = new ArrayList<Weight>();
         // Select All Query
@@ -144,6 +180,11 @@ public class MyDbHelper extends SQLiteOpenHelper {
         return weightList;
     }
 
+    /**
+     * Gets all exercises from database and returns them.
+     *
+     * @return ArrayList representing all weights from database
+     */
     public ArrayList getAllExercises() {
         ArrayList<Exercise> exerciseList = new ArrayList<Exercise>();
         // Select All Query
@@ -166,6 +207,12 @@ public class MyDbHelper extends SQLiteOpenHelper {
         return exerciseList;
     }
 
+    /**
+     * Gets all sets by exercise from database and returns them.
+     *
+     * @param exercise Exercise containing info about exercise
+     * @return ArrayList representing all Sets for the exercise
+     */
     public ArrayList getAllSetsByExercise(Exercise exercise) {
         ArrayList<Set> setList = new ArrayList<Set>();
         // Select All Query
@@ -214,6 +261,11 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Removes all sets by exercise from the database.
+     *
+     * @param exerciseId Integer containing id of the exercise
+     */
     public void deleteAllSets(int exerciseId) {
         SQLiteDatabase db = this.getWritableDatabase();
    //     String deleteQueryQuery = "DELETE FROM" + SET_TABLE +" WHERE " +KEY_ID+" = " + setId;
@@ -224,6 +276,11 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Removes weight from the database
+     *
+     * @param weightId Integer containing id of the weight
+     */
     public void deleteWeight(int weightId) {
         SQLiteDatabase db = this.getWritableDatabase();
         String deleteQueryQuery = "DELETE FROM" + WEIGHT_TABLE +" WHERE " +KEY_ID+" = " + weightId;
@@ -234,6 +291,11 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Removes exercise from the database.
+     *
+     * @param exerciseId Integer containing id of the exercise
+     */
     public void deleteExercise(int exerciseId) {
         deleteAllSets(exerciseId);
 

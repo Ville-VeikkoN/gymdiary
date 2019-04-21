@@ -14,7 +14,21 @@ import android.widget.EditText;
 
 import fi.tuni.gymdiary.mygymdiary.R;
 
+/**
+ * Class for displaying dialog when adding Exercise.
+ *
+ * @author Ville-Veikko Nieminen
+ * @version 1.8
+ * @since 2019-04-21
+ */
 public class MyExerciseDialog extends DialogFragment {
+    /**
+     * Method is called when MyExerciseDialog is created. Sets the layout for dialog.
+     * Listens if Buttons is clicked and acts the way needed.
+     *
+     * @param savedInstanceState Bundle
+     * @return Dialog representing dialog for adding Exercise
+     */
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

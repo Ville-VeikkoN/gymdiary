@@ -20,12 +20,25 @@ import java.util.ArrayList;
 import fi.tuni.gymdiary.mygymdiary.MyDbHelper;
 import fi.tuni.gymdiary.mygymdiary.R;
 
+/**
+ * Activity for displaying bodyweights in ListView and uses MyDbHelper for database.
+ *
+ * @author Ville-Veikko Nieminen
+ * @version 1.8
+ * @since 2019-04-21
+ */
 public class WeightActivity extends AppCompatActivity {
     private ListView listView;
     ArrayList<Weight> listItems;
     ArrayAdapter<String> adapter;
     MyDbHelper dbHelper;
 
+    /**
+     * Method called when WeightActivity is created.
+     * Intializes variables, sets layout and calls needed methods.
+     *
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +51,19 @@ public class WeightActivity extends AppCompatActivity {
         setListViewListener();
     }
 
+    /**
+     * Method called when button is clicked.
+     *
+     * @param view view containing button that was clicked
+     */
     public void onClick(View view) {
         MyWeightDialog myDialog = new MyWeightDialog();
         myDialog.show(getSupportFragmentManager(),"tag");
     }
 
+    /**
+     * Sets ListView for weights
+     */
     protected void setListView() {
      /*   adapter=new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_2,
@@ -81,10 +102,18 @@ public class WeightActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
+    /**
+     * Sets all weights from database using MyDbHelper to ArrayList and by that to ListView.
+     */
     protected void setWeights() {
         listItems = dbHelper.getAllBodyWeights();
     }
 
+    /**
+     * Adds weight to ArrayList and by that to ListView and calls method to add it to database.
+     *
+     * @param weight containing info about weight
+     */
     protected void addBodyWeight(Weight weight) {
         Log.d("Tag","ADDING");
         listItems.add(weight);
@@ -92,6 +121,9 @@ public class WeightActivity extends AppCompatActivity {
         // adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Sets listener to ListView.
+     */
     protected void setListViewListener() {
         final Context thisContext = this;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -24,6 +24,13 @@ import java.util.concurrent.TimeUnit;
 import fi.tuni.gymdiary.mygymdiary.R;
 import fi.tuni.gymdiary.mygymdiary.weight.Weight;
 
+/**
+ * Fragment for displaying Sets in a ListView
+ *
+ * @author Ville-Veikko Nieminen
+ * @version 1.8
+ * @since 2019-04-21
+ */
 public class SetsFragment extends Fragment {
     TextView textView;
     ListView listView;
@@ -32,6 +39,15 @@ public class SetsFragment extends Fragment {
     ArrayAdapter<String> adapter;
     FloatingActionButton fab;
 
+    /**
+     * Method called when SetsFragment is created.
+     * Intializes variables, sets layout and calls needed methods.
+     *
+     * @param inflater LayoutInflater
+     * @param container ViewGroup
+     * @param savedInstanceState Bundle
+     * @return view
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,6 +63,9 @@ public class SetsFragment extends Fragment {
     }
 
 
+    /**
+     * Sets ListView for sets.
+     */
     protected void setListView() {
      /*   adapter=new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_2,
@@ -81,6 +100,11 @@ public class SetsFragment extends Fragment {
         // adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Adds set to ArrayList and by that to ListView.
+     *
+     * @param set containing info about Set
+     */
     protected void addToListView(Set set) {
         String activityString = set.getSets()+" x "+ set.getReps()+" x "+ set.getWeight()+" kg";
         listItems.add(set);
@@ -90,11 +114,19 @@ public class SetsFragment extends Fragment {
     //    adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Intializes exercise with cuurrently selected exercise.
+     *
+     * @param exercise containing info about exercise
+     */
     public void exerciseSelected(Exercise exercise) {
         this.exercise = exercise;
         //textView.setText(exercise.getExercise());
     }
 
+    /**
+     * Sets listeners for floating action button and ListView
+     */
     public void setListeners() {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,6 +10,13 @@ import android.util.Log;
 
 import fi.tuni.gymdiary.mygymdiary.R;
 
+/**
+ * Service for counter.
+ *
+ * @author Ville-Veikko Nieminen
+ * @version 1.8
+ * @since 2019-04-21
+ */
 public class CounterService extends Service {
 
     MyBinder binder = new MyBinder();
@@ -19,6 +26,11 @@ public class CounterService extends Service {
     boolean counterOn;
     MediaPlayer mp = null;
 
+    /**
+     * Starts the counter.
+     *
+     * @param seconds Integer representing amount of seconds in counter.
+     */
     public void startCounter(int seconds) {
         counterOn = true;
         int counterTime = seconds*1000;
@@ -38,6 +50,9 @@ public class CounterService extends Service {
         }.start();
     }
 
+    /**
+     * Stops the counter.
+     */
     public void stopCounter() {
         if(countDownTimer != null) {
             counterOn = false;
@@ -45,17 +60,32 @@ public class CounterService extends Service {
         }
     }
 
+    /**
+     * Method is called when binded
+     *
+     * @param intent Intent
+     * @return MyBinder binder
+     */
     public IBinder onBind(Intent intent) {
-        Log.i("MyTag", "MyService onBind");
         return binder;
     }
 
+    /**
+     * Inner class for Binder
+     *
+     * @author Ville-Veikko Nieminen
+     * @version 1.8
+     * @since 2019-04-21
+     */
     class MyBinder extends Binder {
         CounterService getService() {
             return CounterService.this;
         }
     }
 
+    /**
+     * Method is called when Activity is destroyed.
+     */
     @Override
     public void onDestroy() {
         Log.d("MyTag", "OnDestroy");
@@ -66,10 +96,18 @@ public class CounterService extends Service {
         super.onDestroy();
     }
 
+    /**
+     * Returns boolean which tells if counter is running.
+     *
+     * @return boolean counterOn representing the fact if counter is running.
+     */
     public boolean isCounterOn() {
         return counterOn;
     }
 
+    /**
+     * Method plays the sound when counter is ready.
+     */
     public void playSound() {
         try {
             if(mp != null) {

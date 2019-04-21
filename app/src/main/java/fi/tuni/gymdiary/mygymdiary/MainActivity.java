@@ -9,14 +9,32 @@ import fi.tuni.gymdiary.mygymdiary.counter.CounterActivity;
 import fi.tuni.gymdiary.mygymdiary.exercise.ExerciseActivity;
 import fi.tuni.gymdiary.mygymdiary.weight.WeightActivity;
 
+/**
+ * MainActivity
+ *
+ * @author Ville-Veikko Nieminen
+ * @version 1.8
+ * @since 2019-04-21
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * Method called when MainActivity is created.
+     * Sets layout.
+     *
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * Called when button is clicked. Checks which button it was and acts like wanted.
+     *
+     * @param v View containing button which was clicked
+     */
     public void buttonClicked(View v) {
         if(v.getId() == R.id.exercises) {
             Intent i = new Intent(this, ExerciseActivity.class);

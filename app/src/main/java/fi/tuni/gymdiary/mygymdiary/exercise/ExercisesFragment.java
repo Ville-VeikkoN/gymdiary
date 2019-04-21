@@ -23,6 +23,13 @@ import fi.tuni.gymdiary.mygymdiary.MyDbHelper;
 import fi.tuni.gymdiary.mygymdiary.R;
 import fi.tuni.gymdiary.mygymdiary.weight.Weight;
 
+/**
+ * Fragment for displaying Exercises in a list.
+ *
+ * @author Ville-Veikko Nieminen
+ * @version 1.8
+ * @since 2019-04-21
+ */
 public class ExercisesFragment extends Fragment {
     View view;
     MyDbHelper dbHelper;
@@ -32,6 +39,15 @@ public class ExercisesFragment extends Fragment {
     FloatingActionButton fab;
 
 
+    /**
+     * Methos called when ExerciseFragment is created.
+     * Intializes variables, sets layout and calls needed methods.
+     *
+     * @param inflater LayoytInflater
+     * @param container ViewGroup
+     * @param savedInstanceState Bundle
+     * @return View view
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,6 +61,10 @@ public class ExercisesFragment extends Fragment {
         return view;
     }
 
+
+    /**
+     * Sets the ListView for Exercises.
+     */
     protected void setListView() {
         listItems.clear();
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.mysimple_list_layout, R.id.text1, listItems) {
@@ -79,11 +99,20 @@ public class ExercisesFragment extends Fragment {
        // adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Adds Exercise to ArrayList and by that to ListView.
+     *
+     * @param exercise representing exercise to add to ListView
+     */
     protected void addToListView(Exercise exercise) {
         listItems.add(exercise);
-        Log.d("MyTag","after db calling "+exercise.getExercise());
     }
 
+
+    /**
+     * Sets needed Listeners for floating action button and ListView.
+     * Listens if Buttons is clicked and acts the way needed.
+     */
     protected void setListeners() {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

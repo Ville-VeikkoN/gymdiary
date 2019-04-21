@@ -4,10 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.ConditionVariable;
 import android.support.v4.app.DialogFragment;
 
-import fi.tuni.gymdiary.mygymdiary.R;
 
 public class ConfirmDeleteDialog extends DialogFragment {
 

@@ -17,6 +17,13 @@ import android.widget.TimePicker;
 
 import fi.tuni.gymdiary.mygymdiary.R;
 
+/**
+ * Activity for using counter.
+ *
+ * @author Ville-Veikko Nieminen
+ * @version 1.8
+ * @since 2019-04-21
+ */
 public class CounterActivity extends AppCompatActivity {
 
     TimePicker counterPicker;
@@ -29,6 +36,13 @@ public class CounterActivity extends AppCompatActivity {
     CounterService service;
     boolean receiverRegistered;
 
+    /**
+     * Method is called when CounterActivity is created.
+     * Intializes variables, sets layout and calls methods to create
+     * needed actions.
+     *
+     * @param savedInstanceState Bundle for saved instance states
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +62,10 @@ public class CounterActivity extends AppCompatActivity {
         bindService(intent, sConn, BIND_AUTO_CREATE);
     }
 
+
+    /**
+     * Sets listener for TimePicker.
+     */
     protected void setListeners() {
         counterPicker.setCurrentHour(0);
         counterPicker.setCurrentMinute(0);
@@ -59,6 +77,12 @@ public class CounterActivity extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * Handles actions performed when buttons is clicked.
+     *
+     * @param view View containing the view clicked
+     */
     public void onCLickHandler(View view) {
         if(view.getId() == R.id.selectbtn) {
             if(!service.isCounterOn()) {
@@ -75,8 +99,21 @@ public class CounterActivity extends AppCompatActivity {
           //  counterPicker.setEnabled(true);
         }
     }
+    /**
+     * Inner class for BroadcastReveicer.
+     *
+     * @author Ville-Veikko Nieminen
+     * @version 1.8
+     * @since 2019-04-21
+     */
     class MyBroadCastReceiver extends BroadcastReceiver {
 
+        /**
+         * Method that is called when receives broadcast.
+         *
+         * @param context Context
+         * @param intent Intent
+         */
         @Override
         public void onReceive(Context context, Intent intent) {
             int countInSeconds = (Integer.parseInt(intent.getStringExtra("counterTime")) /1000);
@@ -89,6 +126,9 @@ public class CounterActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method is called when Activity is destroyed.
+     */
     @Override
     protected void onDestroy() {
         if(receiverRegistered) {
@@ -101,6 +141,9 @@ public class CounterActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    /**
+     * Sets Service connection.
+     */
     protected void setServiceConnection() {
         sConn = new ServiceConnection() {
             public void onServiceConnected(ComponentName name, IBinder binder) {

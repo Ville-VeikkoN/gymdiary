@@ -14,7 +14,21 @@ import java.util.Date;
 
 import fi.tuni.gymdiary.mygymdiary.R;
 
+/**
+ * Class for displaying dialog when adding bodyweight.
+ *
+ * @author Ville-Veikko Nieminen
+ * @version 1.8
+ * @since 2019-04-21
+ */
 public class MyWeightDialog extends DialogFragment {
+    /**
+     * Method is called when MyWeightDialog is created. Sets layout for Dialog.
+     * Listens if Buttons is clicked and acts the way needed.
+     *
+     * @param savedInstanceState Bundle
+     * @return Dialog representing dialog for adding bodyweight
+     */
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
