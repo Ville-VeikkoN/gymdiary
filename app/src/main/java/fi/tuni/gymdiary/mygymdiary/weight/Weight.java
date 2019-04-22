@@ -10,9 +10,17 @@ import java.util.Date;
  * @since 2019-04-21
  */
 public class Weight {
-
+    /**
+     * Id for the weight
+     */
     private int id;
+    /**
+     * Weight for the weight
+     */
     private double weight;
+    /**
+     * Date for the weight
+     */
     private Date date;
 
     /**

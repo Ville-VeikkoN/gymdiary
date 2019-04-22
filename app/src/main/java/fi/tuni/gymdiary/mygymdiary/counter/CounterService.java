@@ -20,12 +20,25 @@ import fi.tuni.gymdiary.mygymdiary.R;
  * @since 2019-04-21
  */
 public class CounterService extends Service {
-
+    /**
+     * Binder for binding
+     */
     MyBinder binder = new MyBinder();
-    private int counterTime;
+    /**
+     * Intent for broadcasting
+     */
     private Intent i;
+    /**
+     * CountDownTimer for counter
+     */
     CountDownTimer countDownTimer = null;
+    /**
+     * Boolean to tell if counter is running
+     */
     boolean counterOn;
+    /**
+     * MediaPlayer for playing sound when counter is ready
+     */
     MediaPlayer mp = null;
 
     /**

@@ -30,11 +30,21 @@ import fi.tuni.gymdiary.mygymdiary.R;
  * @since 2019-04-21
  */
 public class SetsFragment extends Fragment {
-    TextView textView;
+    /**
+     * ListView to display sets
+     */
     ListView listView;
+    /**
+     * Exercise to tell which exercise is currently selected
+     */
     Exercise exercise;
+    /**
+     * Arraylist for the sets
+     */
     ArrayList<Set> listItems;
-    ArrayAdapter<String> adapter;
+    /**
+     * Floating action button for adding sets
+     */
     FloatingActionButton fab;
 
     /**
@@ -50,7 +60,7 @@ public class SetsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sets, container, false);
-        textView = view.findViewById(R.id.textviewSets);
+        TextView textView = view.findViewById(R.id.textviewSets);
         textView.setText(exercise.getExercise());
         listView = view.findViewById(R.id.exerciselist);
         listItems = new ArrayList<>();
@@ -69,7 +79,7 @@ public class SetsFragment extends Fragment {
                 android.R.layout.simple_list_item_2,
                 listItems);*/
         listItems.clear();
-        adapter = new ArrayAdapter(getActivity(), R.layout.mysimple_list_layout, R.id.text1, listItems) {
+        ArrayAdapter<String> adapter = new ArrayAdapter(getActivity(), R.layout.mysimple_list_layout, R.id.text1, listItems) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);

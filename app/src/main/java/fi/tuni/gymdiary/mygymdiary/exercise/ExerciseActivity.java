@@ -20,10 +20,21 @@ import fi.tuni.gymdiary.mygymdiary.R;
  * @since 2019-04-21
  */
 public class ExerciseActivity extends AppCompatActivity {
+    /**
+     * Databasehelper for using database
+     */
     MyDbHelper dbHelper;
+    /**
+     * Exercise to tell which exercise is currently selected
+     */
     Exercise selectedExercise;
-
+    /**
+     * Fragment for showing exercises
+     */
     ExercisesFragment firstFragment;
+    /**
+     * Fragment for showing sets
+     */
     SetsFragment secondFragment;
 
     /**

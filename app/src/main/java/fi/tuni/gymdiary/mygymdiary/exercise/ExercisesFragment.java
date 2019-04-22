@@ -28,11 +28,17 @@ import fi.tuni.gymdiary.mygymdiary.R;
  * @since 2019-04-21
  */
 public class ExercisesFragment extends Fragment {
-    View view;
-    MyDbHelper dbHelper;
+    /**
+     * ListView for showing exercises
+     */
     private ListView listView;
+    /**
+     * ArrayList for the exercises
+     */
     ArrayList<Exercise> listItems;
-    ArrayAdapter<String> adapter;
+    /**
+     * Floating action button for adding new exercise
+     */
     FloatingActionButton fab;
 
 
@@ -48,8 +54,7 @@ public class ExercisesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_exercises, container, false);
-        dbHelper = new MyDbHelper(getActivity());
+        View view = inflater.inflate(R.layout.fragment_exercises, container, false);
         listView = (ListView) view.findViewById(R.id.exerciseslist);
         listItems=new ArrayList<>();
         fab = view.findViewById(R.id.exercisesfab);

@@ -26,14 +26,37 @@ import fi.tuni.gymdiary.mygymdiary.R;
  */
 public class CounterActivity extends AppCompatActivity {
 
+    /**
+     * TimePicker for the counter
+     */
     TimePicker counterPicker;
+    /**
+     * TextView to show the time
+     */
     TextView counterTime;
+    /**
+     * Filter for broadcast
+     */
     IntentFilter filter;
+    /**
+     * Receiver for the broadcast
+     */
     MyBroadCastReceiver broadCastReceiver;
+    /**
+     * Boolean to tell if service is bounded
+     */
     boolean bound = false;
+    /**
+     * ServiceConnection for the binding
+     */
     ServiceConnection sConn;
-    Intent intent;
+    /**
+     * Service for counter
+     */
     CounterService service;
+    /**
+     * Boolean to tell if BroadCastReceiver is registered
+     */
     boolean receiverRegistered;
 
     /**

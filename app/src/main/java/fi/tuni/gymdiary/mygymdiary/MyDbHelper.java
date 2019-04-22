@@ -25,30 +25,64 @@ import fi.tuni.gymdiary.mygymdiary.weight.Weight;
  */
 public class MyDbHelper extends SQLiteOpenHelper {
 
+    /**
+     * Version of the database
+     */
     private static final int DATABASE_VERSION = 1;
-
+    /**
+     * Table name for the weights
+     */
     private static final String WEIGHT_TABLE = "weight";
+    /**
+     * Table name for the exercises
+     */
     private static final String EXERCISE_TABLE = "exercise";
+    /**
+     * Table name for the sets
+     */
     private static final String SET_TABLE = "sets";
-
+    /**
+     * Column name for the id
+     */
     private static final String KEY_ID = "ID";
+    /**
+     * Column name for the date
+     */
     private static final String KEY_DATE = "date";
-
+    /**
+     * Column name for the weight
+     */
     private static final String KEY_WEIGHT = "weight";
-
+    /**
+     * Column name for the exercise
+     */
     private static final String KEY_EXERCISE = "exercise";
-
+    /**
+     * Column name for the sets
+     */
     private static final String KEY_SETS = "sets";
+    /**
+     * Column name for the reps
+     */
     private static final String KEY_REPS = "reps";
+    /**
+     * Column name for the exerciseId
+     */
     private static final String KEY_EXERCISE_ID = "exerciseId";
-
+    /**
+     * String to create weight table
+     */
     private static final String CREATE_TABLE_WEIGHT = "CREATE TABLE "
             + WEIGHT_TABLE + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_DATE
             + " DATE," + KEY_WEIGHT + " REAL"  + ")";
-
+    /**
+     * String to create exercise table
+     */
     private static final String CREATE_TABLE_EXERCISE = "CREATE TABLE "
             + EXERCISE_TABLE + "(" + KEY_ID + " INTEGER PRIMARY KEY," +KEY_EXERCISE + " TEXT" + ")";
-
+    /**
+     * String to create set table
+     */
     private static final String CREATE_TABLE_SET = "CREATE TABLE "
             + SET_TABLE + "( " + KEY_ID + " INTEGER PRIMARY KEY," + KEY_DATE
             + " DATE," + KEY_EXERCISE_ID + " INTEGER," + KEY_SETS +" INTEGER,"

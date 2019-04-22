@@ -11,11 +11,29 @@ import java.util.Date;
  */
 public class Set {
 
+    /**
+     * Id for the set
+     */
     private int id;
+    /**
+     * Integer to tell which is the exercise for the set
+     */
     private int exerciseId;
+    /**
+     * Amount of the sets
+     */
     private int sets;
+    /**
+     * Amount of the reps
+     */
     private int reps;
+    /**
+     * Amount of the weight being used
+     */
     private double weight;
+    /**
+     * Date for the set
+     */
     private Date date;
 
     /**

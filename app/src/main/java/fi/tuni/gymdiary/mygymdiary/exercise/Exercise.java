@@ -9,8 +9,13 @@ package fi.tuni.gymdiary.mygymdiary.exercise;
  */
 public class Exercise {
 
+    /**
+     * Id for the exercise
+     */
     private int id;
-
+    /**
+     * String for exercises name
+     */
     private String exercise;
 
     /**

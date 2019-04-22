@@ -28,9 +28,17 @@ import fi.tuni.gymdiary.mygymdiary.R;
  * @since 2019-04-21
  */
 public class WeightActivity extends AppCompatActivity {
+    /**
+     * ListView for displaying weights
+     */
     private ListView listView;
+    /**
+     * ArrayList for the weights
+     */
     ArrayList<Weight> listItems;
-    ArrayAdapter<String> adapter;
+    /**
+     * Databasehelper for using database
+     */
     MyDbHelper dbHelper;
 
     /**
