@@ -1,6 +1,5 @@
 package fi.tuni.gymdiary.mygymdiary.exercise;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +19,6 @@ import java.util.ArrayList;
 
 import fi.tuni.gymdiary.mygymdiary.MyDbHelper;
 import fi.tuni.gymdiary.mygymdiary.R;
-import fi.tuni.gymdiary.mygymdiary.weight.Weight;
 
 /**
  * Fragment for displaying Exercises in a list.
@@ -51,11 +48,11 @@ public class ExercisesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_movements, container, false);
+        view = inflater.inflate(R.layout.fragment_exercises, container, false);
         dbHelper = new MyDbHelper(getActivity());
-        listView = (ListView) view.findViewById(R.id.movementlist);
+        listView = (ListView) view.findViewById(R.id.exerciseslist);
         listItems=new ArrayList<>();
-        fab = view.findViewById(R.id.movementsfab);
+        fab = view.findViewById(R.id.exercisesfab);
         setListeners();
         setListView();
         return view;

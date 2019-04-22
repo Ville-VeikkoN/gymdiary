@@ -7,7 +7,7 @@
 
 
     <TextView
-        android:id="@+id/textviewMovements"
+        android:id="@+id/textviewExercises"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your exercises"
@@ -15,16 +15,29 @@
         android:textSize="30dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/textviewexerciseguide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click exercises to open, click and hold to delete"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textviewExercises"
+        android:textColor="@color/white"/>
 
     <ListView
-        android:id="@+id/movementlist"
-        app:layout_constraintTop_toBottomOf="@id/textviewMovements"
+        android:id="@+id/exerciseslist"
+        app:layout_constraintTop_toBottomOf="@id/textviewexerciseguide"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/movementsfab"
+        android:id="@+id/exercisesfab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"

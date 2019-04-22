@@ -87,16 +87,13 @@ public class CounterActivity extends AppCompatActivity {
         if(view.getId() == R.id.selectbtn) {
             if(!service.isCounterOn()) {
                 int seconds = counterPicker.getCurrentHour()*60 + counterPicker.getCurrentMinute();
-                //     service.setCounterTime(seconds);
                 service.startCounter(seconds);
-          //      counterPicker.setEnabled(false);
             }
 
         } else if(view.getId() == R.id.resetbtn) {
             service.stopCounter();
             counterPicker.setCurrentHour(0);
             counterPicker.setCurrentMinute(0);
-          //  counterPicker.setEnabled(true);
         }
     }
     /**
@@ -120,9 +117,6 @@ public class CounterActivity extends AppCompatActivity {
             int minutes = countInSeconds / 60;
             int seconds = countInSeconds % 60;
             counterTime.setText(minutes+"min"+seconds+"sec");
-        //    if(minutes==0 && seconds==0) {
-         //       counterPicker.setEnabled(true);
-        //    }
         }
     }
 
@@ -147,13 +141,11 @@ public class CounterActivity extends AppCompatActivity {
     protected void setServiceConnection() {
         sConn = new ServiceConnection() {
             public void onServiceConnected(ComponentName name, IBinder binder) {
-                Log.i("MyTag", "MainActivity onServiceConnected");
                 service = ((CounterService.MyBinder) binder).getService();
                 bound = true;
             }
 
             public void onServiceDisconnected(ComponentName name) {
-                Log.i("MyTag", "MainActivity onServiceDisconnected");
                 bound = false;
             }
         };

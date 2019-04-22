@@ -2,7 +2,9 @@ package fi.tuni.gymdiary.mygymdiary.counter;
 
 import android.app.Service;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.CountDownTimer;
 import android.os.IBinder;
@@ -39,7 +41,6 @@ public class CounterService extends Service {
 
             public void onTick(long millisUntilFinished) {
                 i.putExtra("counterTime",""+millisUntilFinished);
-                System.out.println(millisUntilFinished);                                                                                            /////////////
                 sendBroadcast(i);
             }
 
@@ -88,7 +89,6 @@ public class CounterService extends Service {
      */
     @Override
     public void onDestroy() {
-        Log.d("MyTag", "OnDestroy");
         counterOn = false;
         if(mp != null) {
             mp.release();
@@ -114,7 +114,7 @@ public class CounterService extends Service {
                 mp.reset();
                 mp.release();
             }
-            mp = MediaPlayer.create(getApplicationContext(), R.raw.beep);
+            mp = MediaPlayer.create(getApplicationContext(), Uri.parse("android.resource://"+getPackageName()+"/raw/morse"));
             mp.start();
         } catch (Exception e) {
             e.printStackTrace();

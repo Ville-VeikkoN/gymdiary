@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import fi.tuni.gymdiary.mygymdiary.R;
-import fi.tuni.gymdiary.mygymdiary.weight.Weight;
 
 /**
  * Fragment for displaying Sets in a ListView
@@ -51,12 +49,12 @@ public class SetsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_exercise, container, false);
-        textView = view.findViewById(R.id.textviewExercise);
+        View view = inflater.inflate(R.layout.fragment_sets, container, false);
+        textView = view.findViewById(R.id.textviewSets);
         textView.setText(exercise.getExercise());
         listView = view.findViewById(R.id.exerciselist);
         listItems = new ArrayList<>();
-        fab = view.findViewById(R.id.exercisefab);
+        fab = view.findViewById(R.id.setsfab);
         setListView();
         setListeners();
         return view;
