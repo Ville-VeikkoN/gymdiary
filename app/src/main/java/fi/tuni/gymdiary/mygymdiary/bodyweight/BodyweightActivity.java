@@ -1,4 +1,4 @@
-package fi.tuni.gymdiary.mygymdiary.weight;
+package fi.tuni.gymdiary.mygymdiary.bodyweight;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,22 +27,22 @@ import fi.tuni.gymdiary.mygymdiary.R;
  * @version 1.8
  * @since 2019-04-21
  */
-public class WeightActivity extends AppCompatActivity {
+public class BodyweightActivity extends AppCompatActivity {
     /**
-     * ListView for displaying weights
+     * ListView for displaying bodyweights
      */
     private ListView listView;
     /**
-     * ArrayList for the weights
+     * ArrayList for the bodyweights
      */
-    ArrayList<Weight> listItems;
+    ArrayList<BodyWeight> listItems;
     /**
      * Databasehelper for using database
      */
     MyDbHelper dbHelper;
 
     /**
-     * Method called when WeightActivity is created.
+     * Method called when BodyweightActivity is created.
      * Intializes variables, sets layout and calls needed methods.
      *
      * @param savedInstanceState Bundle
@@ -65,17 +65,15 @@ public class WeightActivity extends AppCompatActivity {
      * @param view view containing button that was clicked
      */
     public void onClick(View view) {
-        MyWeightDialog myDialog = new MyWeightDialog();
+        MyBodyweightDialog myDialog = new MyBodyweightDialog();
         myDialog.show(getSupportFragmentManager(),"tag");
     }
 
     /**
-     * Sets ListView for weights
+     * Sets ListView for bodyweights
      */
     protected void setListView() {
-     /*   adapter=new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_2,
-                listItems);*/
+
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.mysimple_list_layout, R.id.text1, listItems) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -84,13 +82,13 @@ public class WeightActivity extends AppCompatActivity {
                 TextView text2 = (TextView) view.findViewById(R.id.text2);
                 TextView text3 = (TextView) view.findViewById(R.id.text3);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
-                Weight weight = listItems.get(position);
+                BodyWeight weight = listItems.get(position);
                 text1.setText(weight.getWeight()+" kg");
                 text1.setTextSize(20);
                 text2.setText(dateFormat.format(weight.getDate().getTime()));
 
                 if(position > 0) {
-                    Weight previousWeight = listItems.get(position-1);
+                    BodyWeight previousWeight = listItems.get(position-1);
                     double difference = weight.getWeight()-previousWeight.getWeight();
                     difference = Math.round(difference*100.0)/100.0;
                     if(difference > 0) {
@@ -111,21 +109,21 @@ public class WeightActivity extends AppCompatActivity {
     }
 
     /**
-     * Sets all weights from database using MyDbHelper to ArrayList and by that to ListView.
+     * Sets all bodyweight from database using MyDbHelper to ArrayList and by that to ListView.
      */
     protected void setWeights() {
-        listItems = dbHelper.getAllBodyWeights();
+        listItems = dbHelper.getAllBodyweights();
     }
 
     /**
-     * Adds weight to ArrayList and by that to ListView and calls method to add it to database.
+     * Adds bodyweight to ArrayList and by that to ListView and calls method to add it to database.
      *
-     * @param weight containing info about weight
+     * @param weight containing info about bodyweight
      */
-    protected void addBodyWeight(Weight weight) {
+    protected void addBodyWeight(BodyWeight weight) {
         Log.d("Tag","ADDING");
         listItems.add(weight);
-        dbHelper.addBodyWeight(weight);
+        dbHelper.addBodyweight(weight);
         // adapter.notifyDataSetChanged();
     }
 
@@ -137,7 +135,7 @@ public class WeightActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Weight weight = listItems.get(position);
+                final BodyWeight weight = listItems.get(position);
                 AlertDialog.Builder adb=new AlertDialog.Builder(thisContext);
                 adb.setTitle("Delete?");
                 adb.setMessage("Are you sure you want to delete selected weight information");
@@ -145,7 +143,7 @@ public class WeightActivity extends AppCompatActivity {
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Delete", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        dbHelper.deleteWeight(weight.getId());
+                        dbHelper.deleteBodyweight(weight.getId());
                         setWeights();
                         setListView();
                     }});

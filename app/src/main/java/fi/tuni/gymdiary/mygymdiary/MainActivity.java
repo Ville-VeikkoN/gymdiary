@@ -7,7 +7,7 @@ import android.view.View;
 
 import fi.tuni.gymdiary.mygymdiary.counter.CounterActivity;
 import fi.tuni.gymdiary.mygymdiary.exercise.ExerciseActivity;
-import fi.tuni.gymdiary.mygymdiary.weight.WeightActivity;
+import fi.tuni.gymdiary.mygymdiary.bodyweight.BodyweightActivity;
 
 /**
  * MainActivity
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(this, ExerciseActivity.class);
             startActivity(i);
         } else if (v.getId() == R.id.weight) {
-            Intent i = new Intent(this, WeightActivity.class);
+            Intent i = new Intent(this, BodyweightActivity.class);
             startActivity(i);
         } else if(v.getId() == R.id.counter) {
             Intent i = new Intent(this, CounterActivity.class);

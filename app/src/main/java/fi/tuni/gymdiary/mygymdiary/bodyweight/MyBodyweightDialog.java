@@ -1,4 +1,4 @@
-package fi.tuni.gymdiary.mygymdiary.weight;
+package fi.tuni.gymdiary.mygymdiary.bodyweight;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -21,9 +21,9 @@ import fi.tuni.gymdiary.mygymdiary.R;
  * @version 1.8
  * @since 2019-04-21
  */
-public class MyWeightDialog extends DialogFragment {
+public class MyBodyweightDialog extends DialogFragment {
     /**
-     * Method is called when MyWeightDialog is created. Sets layout for Dialog.
+     * Method is called when MyBodyweightDialog is created. Sets layout for Dialog.
      * Listens if Buttons is clicked and acts the way needed.
      *
      * @param savedInstanceState Bundle
@@ -46,8 +46,8 @@ public class MyWeightDialog extends DialogFragment {
                 if(TextUtils.isEmpty(ed_weight.getText().toString())) {
                     ed_weight.setError("Cannot be empty");
                 } else {
-                    WeightActivity weightActivity = (WeightActivity) getActivity();
-                    Weight weight = new Weight();
+                    BodyweightActivity weightActivity = (BodyweightActivity) getActivity();
+                    BodyWeight weight = new BodyWeight();
                     weight.setWeight(Double.parseDouble(ed_weight.getText().toString()));
                     weight.setDate(new Date());
                     weightActivity.addBodyWeight(weight);

@@ -12,9 +12,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import fi.tuni.gymdiary.mygymdiary.bodyweight.BodyWeight;
 import fi.tuni.gymdiary.mygymdiary.exercise.Set;
 import fi.tuni.gymdiary.mygymdiary.exercise.Exercise;
-import fi.tuni.gymdiary.mygymdiary.weight.Weight;
 
 /**
  * Class for database connection
@@ -30,9 +30,9 @@ public class MyDbHelper extends SQLiteOpenHelper {
      */
     private static final int DATABASE_VERSION = 1;
     /**
-     * Table name for the weights
+     * Table name for the bodyweights
      */
-    private static final String WEIGHT_TABLE = "weight";
+    private static final String BODYWEIGHT_TABLE = "weight";
     /**
      * Table name for the exercises
      */
@@ -73,7 +73,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
      * String to create weight table
      */
     private static final String CREATE_TABLE_WEIGHT = "CREATE TABLE "
-            + WEIGHT_TABLE + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_DATE
+            + BODYWEIGHT_TABLE + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_DATE
             + " DATE," + KEY_WEIGHT + " REAL"  + ")";
     /**
      * String to create exercise table
@@ -101,7 +101,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     /**
      * Method called when MyDbHelper is created.
-     * Creates tables for exercise, set and weight
+     * Creates tables for exercise, set and bodyweight
      *
      * @param db
      */
@@ -121,7 +121,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + WEIGHT_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + BODYWEIGHT_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + EXERCISE_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + SET_TABLE);
         onCreate(db);
@@ -161,35 +161,35 @@ public class MyDbHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Adds weight to database.
+     * Adds bodyweight to database.
      *
-     * @param weight Weight containing info about weight
+     * @param weight BodyWeight containing info about weight
      */
-    public void addBodyWeight(Weight weight) {
+    public void addBodyweight(BodyWeight weight) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
         values.put(KEY_DATE, dateFormat.format(weight.getDate()));
         values.put(KEY_WEIGHT, weight.getWeight());
-        db.insert(WEIGHT_TABLE, null, values);
+        db.insert(BODYWEIGHT_TABLE, null, values);
         db.close();
     }
 
     /**
-     * Gets all weights from database and returns them.
+     * Gets all bodyweights from database and returns them.
      *
-     * @return ArrayList representing weights from database
+     * @return ArrayList representing bodyweights from database
      */
-    public ArrayList getAllBodyWeights() {
-        ArrayList<Weight> weightList = new ArrayList<Weight>();
-        String selectQuery = "SELECT  * FROM " + WEIGHT_TABLE;
+    public ArrayList getAllBodyweights() {
+        ArrayList<BodyWeight> weightList = new ArrayList<BodyWeight>();
+        String selectQuery = "SELECT  * FROM " + BODYWEIGHT_TABLE;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             do {
-                Weight weight = new Weight();
+                BodyWeight weight = new BodyWeight();
                 weight.setId(Integer.parseInt(cursor.getString(0)));
                 SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MMM-yyyy HH:mm");
                 Date date = new Date();
@@ -296,14 +296,14 @@ public class MyDbHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Removes weight from the database
+     * Removes bodyweight from the database
      *
-     * @param weightId Integer containing id of the weight
+     * @param weightId Integer containing id of the bodyweight
      */
-    public void deleteWeight(int weightId) {
+    public void deleteBodyweight(int weightId) {
         SQLiteDatabase db = this.getWritableDatabase();
         String where = KEY_ID+" = "+weightId;
-        db.delete(WEIGHT_TABLE,where,null);
+        db.delete(BODYWEIGHT_TABLE,where,null);
         db.close();
     }
 

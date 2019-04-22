@@ -1,4 +1,4 @@
-package fi.tuni.gymdiary.mygymdiary.weight;
+package fi.tuni.gymdiary.mygymdiary.bodyweight;
 
 import java.util.Date;
 
@@ -9,28 +9,28 @@ import java.util.Date;
  * @version 1.8
  * @since 2019-04-21
  */
-public class Weight {
+public class BodyWeight {
     /**
-     * Id for the weight
+     * Id for the bodyweight
      */
     private int id;
     /**
-     * Weight for the weight
+     * BodyWeight for the bodyweight
      */
     private double weight;
     /**
-     * Date for the weight
+     * Date for the bodyweight
      */
     private Date date;
 
     /**
-     * Constructor for weight.
+     * Constructor for bodyweight.
      *
      * @param id Integer containing id for the weight
      * @param weight double containing weight for weight
      * @param date Date containing date for the weight
      */
-    public Weight(int id, double weight, Date date) {
+    public BodyWeight(int id, double weight, Date date) {
         this.id = id;
         this.weight = weight;
         this.date = date;
@@ -39,57 +39,57 @@ public class Weight {
     /**
      * Empty constructor
      */
-    public Weight(){};
+    public BodyWeight(){};
 
     /**
-     * Returns id of the weight
+     * Returns id of the bodyweight
      *
-     * @return Integer representing id of the weight
+     * @return Integer representing id of the bodyweight
      */
     public int getId() {
         return id;
     }
 
     /**
-     * Sets id for the weight
+     * Sets id for the bodyweight
      *
-     * @param id Integer containing id for the weight
+     * @param id Integer containing id for the bodyweight
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * Returns weight of the weight.
+     * Returns weight of the bodyweight.
      *
-     * @return Double representing weight of the weight
+     * @return Double representing weight of the bodyweight
      */
     public double getWeight() {
         return weight;
     }
 
     /**
-     * Sets weight for the weight.
+     * Sets weight for the bodyweight.
      *
-     * @param weight containing weight for the weight
+     * @param weight containing weight for the bodyweight
      */
     public void setWeight(double weight) {
         this.weight = weight;
     }
 
     /**
-     * Returns date of the weight.
+     * Returns date of the bodyweight.
      *
-     * @return Date representing date of the weight
+     * @return Date representing date of the bodyweight
      */
     public Date getDate() {
         return date;
     }
 
     /**
-     * Sets date for the weight.
+     * Sets date for the bodyweight.
      *
-     * @param date Date containing date for the weight
+     * @param date Date containing date for the bodyweight
      */
     public void setDate(Date date) {
         this.date = date;

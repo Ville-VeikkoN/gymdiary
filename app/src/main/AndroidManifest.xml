@@ -26,7 +26,7 @@
             android:name=".counter.CounterActivity" />
         <activity
             android:screenOrientation="portrait"
-            android:name=".weight.WeightActivity" />
+            android:name=".bodyweight.BodyweightActivity" />
         <service android:name=".counter.CounterService"></service>
     </application>
 
