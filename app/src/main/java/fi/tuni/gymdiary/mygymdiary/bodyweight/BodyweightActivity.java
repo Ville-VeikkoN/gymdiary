@@ -121,7 +121,6 @@ public class BodyweightActivity extends AppCompatActivity {
      * @param weight containing info about bodyweight
      */
     protected void addBodyWeight(BodyWeight weight) {
-        Log.d("Tag","ADDING");
         listItems.add(weight);
         dbHelper.addBodyweight(weight);
         // adapter.notifyDataSetChanged();

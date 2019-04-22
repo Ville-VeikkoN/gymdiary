@@ -135,7 +135,6 @@ public class ExerciseActivity extends AppCompatActivity {
      * @param fragment Fragment which replace current fragment
      */
     protected void replaceFragment(SetsFragment fragment) {
-        Log.d("Tag","Replacinfgg");
         secondFragment = fragment;
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

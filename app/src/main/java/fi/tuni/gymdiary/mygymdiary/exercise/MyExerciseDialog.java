@@ -49,7 +49,6 @@ public class MyExerciseDialog extends DialogFragment {
                 if(TextUtils.isEmpty(ed_exercise.getText().toString())) {
                     ed_exercise.setError("Cannot be empty");
                 } else {
-                    Log.d("MyTag","Calls ExerciseActivity method");
                     Exercise exercise = new Exercise(ed_exercise.getText().toString());
                     ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
                     exerciseActivity.addExercise(exercise);

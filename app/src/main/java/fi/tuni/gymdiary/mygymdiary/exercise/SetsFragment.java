@@ -112,7 +112,6 @@ public class SetsFragment extends Fragment {
      * @param set containing info about Set
      */
     protected void addToListView(Set set) {
-        String activityString = set.getSets()+" x "+ set.getReps()+" x "+ set.getWeight()+" kg";
         listItems.add(set);
     }
 
