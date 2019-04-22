@@ -14,7 +14,6 @@ public class ConfirmDeleteDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         final int setId = getArguments().getInt("setId");
-        // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Confirm delete")
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
@@ -29,7 +28,6 @@ public class ConfirmDeleteDialog extends DialogFragment {
                         dismiss();
                     }
                 });
-        // Create the ConfirmDeleteDialog object and return it
         return builder.create();
     }
 }

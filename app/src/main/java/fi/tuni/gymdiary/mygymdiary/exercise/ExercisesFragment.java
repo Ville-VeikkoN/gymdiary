@@ -92,8 +92,6 @@ public class ExercisesFragment extends Fragment {
         listView.setAdapter(adapter);
         ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
         exerciseActivity.setExercises();
-        //    listItems = dbHelper.getAllExercises();
-       // adapter.notifyDataSetChanged();
     }
 
     /**

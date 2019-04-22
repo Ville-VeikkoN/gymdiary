@@ -94,8 +94,6 @@ public class SetsFragment extends Fragment {
         listView.setAdapter(adapter);
         ExerciseActivity exerciseActivity = (ExerciseActivity) getActivity();
         exerciseActivity.setSets();
-        //    listItems = dbHelper.getAllExercises();
-        // adapter.notifyDataSetChanged();
     }
 
     /**
@@ -106,10 +104,6 @@ public class SetsFragment extends Fragment {
     protected void addToListView(Set set) {
         String activityString = set.getSets()+" x "+ set.getReps()+" x "+ set.getWeight()+" kg";
         listItems.add(set);
-     //   listItems.add(exercise.getExercise());
-      //  Log.d("MyTag","after db calling "+exercise.getExercise());
-
-    //    adapter.notifyDataSetChanged();
     }
 
     /**
@@ -119,7 +113,6 @@ public class SetsFragment extends Fragment {
      */
     public void exerciseSelected(Exercise exercise) {
         this.exercise = exercise;
-        //textView.setText(exercise.getExercise());
     }
 
     /**

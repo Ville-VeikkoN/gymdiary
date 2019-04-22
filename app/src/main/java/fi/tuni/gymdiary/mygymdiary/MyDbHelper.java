@@ -148,13 +148,11 @@ public class MyDbHelper extends SQLiteOpenHelper {
      */
     public ArrayList getAllBodyWeights() {
         ArrayList<Weight> weightList = new ArrayList<Weight>();
-        // Select All Query
         String selectQuery = "SELECT  * FROM " + WEIGHT_TABLE;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 Weight weight = new Weight();
@@ -176,7 +174,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         db.close();
-        // return contact list
         return weightList;
     }
 
@@ -187,13 +184,11 @@ public class MyDbHelper extends SQLiteOpenHelper {
      */
     public ArrayList getAllExercises() {
         ArrayList<Exercise> exerciseList = new ArrayList<Exercise>();
-        // Select All Query
         String selectQuery = "SELECT  * FROM " + EXERCISE_TABLE;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 Exercise exercise = new Exercise();
@@ -203,7 +198,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         db.close();
-        // return contact list
         return exerciseList;
     }
 
@@ -215,7 +209,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
      */
     public ArrayList getAllSetsByExercise(Exercise exercise) {
         ArrayList<Set> setList = new ArrayList<Set>();
-        // Select All Query
         String selectQuery = "SELECT  * FROM " + SET_TABLE +" WHERE "+KEY_EXERCISE_ID +" = "+exercise.getId();
 
         Log.d("MyTag", ""+selectQuery);
@@ -223,7 +216,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 Set set = new Set();
@@ -247,15 +239,11 @@ public class MyDbHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         db.close();
-        // return contact list
         return setList;
     }
 
     public void deleteSet(int setId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String deleteQueryQuery = "DELETE FROM" + SET_TABLE +" WHERE " +KEY_ID+" = " + setId;
-        String[] whereArgs = {KEY_EXERCISE_ID +" = " +setId };
-      //  Log.d("MyTag", deleteQueryQuery);
         String where = KEY_ID+" = "+setId;
         db.delete(SET_TABLE,where,null);
         db.close();
@@ -268,9 +256,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
      */
     public void deleteAllSets(int exerciseId) {
         SQLiteDatabase db = this.getWritableDatabase();
-   //     String deleteQueryQuery = "DELETE FROM" + SET_TABLE +" WHERE " +KEY_ID+" = " + setId;
-    //    String[] whereArgs = {KEY_EXERCISE_ID +" = " +setId };
-        //  Log.d("MyTag", deleteQueryQuery);
         String where = KEY_EXERCISE_ID+" = "+exerciseId;
         db.delete(SET_TABLE,where,null);
         db.close();
@@ -283,9 +268,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
      */
     public void deleteWeight(int weightId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String deleteQueryQuery = "DELETE FROM" + WEIGHT_TABLE +" WHERE " +KEY_ID+" = " + weightId;
-        String[] whereArgs = {KEY_EXERCISE_ID +" = " +weightId };
-        //  Log.d("MyTag", deleteQueryQuery);
         String where = KEY_ID+" = "+weightId;
         db.delete(WEIGHT_TABLE,where,null);
         db.close();

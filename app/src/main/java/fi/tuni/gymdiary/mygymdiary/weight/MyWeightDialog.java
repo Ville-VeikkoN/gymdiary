@@ -32,12 +32,7 @@ public class MyWeightDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
         final LayoutInflater inflater = requireActivity().getLayoutInflater();
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-
-        //OWN DIALOG.XML FOR THISSSSSSSSS
         View promptView = inflater.inflate(R.layout.dialog_addweight,null);
         builder.setView(promptView);
 
