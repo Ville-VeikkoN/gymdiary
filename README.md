@@ -23,7 +23,7 @@ Build and run using Android studio.
 OR
 ```
 Download the app from Google Play-store from following link:
-https://play.google.com/store/apps/details?id=fi.tuni.gymdiary.mygymdiary
+[MyGymDiary](https://play.google.com/store/apps/details?id=fi.tuni.gymdiary.mygymdiary)
 ```
 
 ### Technologies
