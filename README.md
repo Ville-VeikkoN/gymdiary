@@ -28,5 +28,5 @@ Download the app from Google Play-store from following link:
 
 ### Technologies
 
- -Java
- -Android Studio
+ - Java
+ - Android Studio
